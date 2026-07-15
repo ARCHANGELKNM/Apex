@@ -1,44 +1,136 @@
 "use client";
 
-import { Separator } from "@/components/ui/separator";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-// import { ProfileForm } from "@/components/settings/profile-form";
-// import { AccountForm } from "@/components/settings/account-form";
+import React, { useState } from "react";
+import { Type, GraduationCap, ShieldAlert, Sparkles } from "lucide-react";
+import { Card, CardHeader, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 
-export default function SettingsPage() {
+export default function RetroSettings() {
+  const [academicTier, setAcademicTier] = useState("high_school");
+  const [fontSize, setFontSize] = useState("large");
+
   return (
-    <div className="p-10 max-w-4xl space-y-6">
-      <div>
-        <h3 className="text-lg font-medium">Settings</h3>
-        <p className="text-sm text-muted-foreground">
-          Manage your account settings and preferences.
-        </p>
+    <div className="max-w-2xl mx-auto space-y-8 animate-in fade-in duration-200">
+      {/* Settings Diagnostic System Banner */}
+      <div className="border-4 border-black bg-emerald-300 p-4 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] flex justify-between items-center">
+        <h2 className="text-xl font-black uppercase tracking-tight">
+          System Configuration // Calibrate User
+        </h2>
+        <Badge
+          variant="black"
+          className="font-mono text-[10px] font-bold text-white uppercase"
+        >
+          CFG_STATE: OK
+        </Badge>
       </div>
-      <Separator />
-      <Tabs defaultValue="profile" className="flex flex-col space-y-8 lg:flex-row lg:space-x-12 lg:space-y-0">
-        <aside className="-mx-4 lg:w-1/5">
-          <TabsList className="flex lg:flex-col bg-transparent lg:space-y-1 justify-start h-auto p-0">
-            <TabsTrigger value="profile" className="justify-start px-4 py-2 hover:bg-muted w-full data-[state=active]:bg-muted">Profile</TabsTrigger>
-            <TabsTrigger value="account" className="justify-start px-4 py-2 hover:bg-muted w-full data-[state=active]:bg-muted">Account</TabsTrigger>
-            <TabsTrigger value="billing" className="justify-start px-4 py-2 hover:bg-muted w-full data-[state=active]:bg-muted">Billing</TabsTrigger>
-          </TabsList>
-        </aside>
-        <div className="flex-1 lg:max-w-2xl">
-          <TabsContent value="profile" className="space-y-6">
-            {/* <ProfileForm /> */}
-          </TabsContent>
-          <TabsContent value="account" className="space-y-6">
-            {/* <AccountForm /> */}
-          </TabsContent>
-          <TabsContent value="billing">
-            <div className="border rounded-lg p-6 bg-zinc-50/50">
-              <h4 className="font-medium mb-2">Current Plan: Elite</h4>
-              <p className="text-sm text-muted-foreground mb-4">You are on the single-tier paid plan with unlimited AI grading.</p>
-              {/* Future Stripe Portal Link */}
-            </div>
-          </TabsContent>
-        </div>
-      </Tabs>
+
+      {/* 1. Academic Calibration Panel */}
+      <Card
+        variant="brutal"
+        className="bg-white border-4 border-black shadow-[6px_6px_0px_0px_#000] p-6"
+      >
+        <CardHeader className="border-b-2 border-black pb-2 mb-4 flex flex-row items-center gap-2">
+          <GraduationCap className="w-5 h-5 stroke-[2.5]" />
+          <h3 className="text-lg font-black uppercase tracking-tight">
+            Academic Identity Tier
+          </h3>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <p className="text-xs font-mono font-bold text-slate-500">
+            This value defines the prompt constraints for the underlying
+            Aristotle AI engine, automatically restructuring vocabularies and
+            assignments to scale.
+          </p>
+
+          {/* Brutalist Selector Array */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
+            {[
+              { id: "primary", label: "Primary School" },
+              { id: "high_school", label: "High School" },
+              { id: "university", label: "University / College" },
+            ].map((tier) => (
+              <Button
+                key={tier.id}
+                variant={academicTier === tier.id ? "default" : "outline"}
+                onClick={() => setAcademicTier(tier.id)}
+                className={`font-black text-xs uppercase border-2 border-black p-4 h-auto shadow-[3px_3px_0px_0px_#000] ${
+                  academicTier === tier.id ? "bg-yellow-300" : "bg-white"
+                }`}
+              >
+                {tier.label}
+              </Button>
+            ))}
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* 2. Granny-Friendly Accessibility Controls */}
+      <Card
+        variant="brutal"
+        className="bg-white border-4 border-black shadow-[6px_6px_0px_0px_#000] p-6"
+      >
+        <CardHeader className="border-b-2 border-black pb-2 mb-4 flex flex-row items-center gap-2">
+          <Type className="w-5 h-5 stroke-[2.5]" />
+          <h3 className="text-lg font-black uppercase tracking-tight">
+            Visual Interface Scaling
+          </h3>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <p className="text-xs font-mono font-bold text-slate-500">
+            Crucial metric optimization parameter for our granny-friendly
+            standard. Instantly enlarges text baselines across the reading
+            layouts.
+          </p>
+
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
+            {[
+              { id: "normal", label: "Standard Text" },
+              { id: "large", label: "Large Text (Granny Mode)" },
+              { id: "massive", label: "Extra Massive Text" },
+            ].map((size) => (
+              <Button
+                key={size.id}
+                variant={fontSize === size.id ? "default" : "outline"}
+                onClick={() => setFontSize(size.id)}
+                className={`font-black text-xs uppercase border-2 border-black p-4 h-auto shadow-[3px_3px_0px_0px_#000] ${
+                  fontSize === size.id ? "bg-cyan-300" : "bg-white"
+                }`}
+              >
+                {size.label}
+              </Button>
+            ))}
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* 3. Open Source Data Transparency Guard */}
+      <Card
+        variant="brutal"
+        className="bg-white border-4 border-black shadow-[6px_6px_0px_0px_#000] p-6"
+      >
+        <CardHeader className="border-b-2 border-black pb-2 mb-4 flex flex-row items-center gap-2 text-rose-600">
+          <ShieldAlert className="w-5 h-5 stroke-[2.5]" />
+          <h3 className="text-lg font-black uppercase tracking-tight">
+            Data Destruction & Privacy Zone
+          </h3>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <p className="text-xs font-mono font-bold text-slate-500">
+            True open-source execution strategy. Clicking this trigger
+            forcefully purges all active projects, records, and linked metadata
+            from the relational cluster database instantly.
+          </p>
+          <div className="pt-2">
+            <Button
+              variant="outline"
+              className="bg-rose-400 text-black border-2 border-black font-black text-xs uppercase px-5 py-3 h-auto shadow-[4px_4px_0px_0px_#000] hover:bg-rose-500"
+            >
+              Purge Database Record & Erase Account
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
     </div>
   );
 }

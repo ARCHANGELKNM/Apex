@@ -1,83 +1,192 @@
-'use client';
+"use client";
 
-import React from 'react';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { FileText, Settings, Flame, FolderKanban , Terminal } from "lucide-react";
+import React, { useState } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import {
+  LayoutDashboard,
+  Folder,
+  Settings,
+  Terminal,
+  Flame,
+  MessagesSquare,
+  Menu,
+  X,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export default function Sidebar() {
   const pathname = usePathname();
+  const [mobileOpen, setMobileOpen] = useState(false);
   const isActive = (path) => pathname === path;
 
   return (
-    <aside className="w-full md:w-64 shrink-0 border-4 border-black bg-white shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] p-5 flex flex-col justify-between h-fit md:h-[94vh] md:sticky md:top-4 z-40">
-      
-      <div className="space-y-6">
-        {/* App Identity Branding Banner */}
-        <div className="border-2 border-black bg-yellow-300 p-3 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] text-center">
-          <h1 className="text-3xl font-black tracking-tighter uppercase text-black">APEX</h1>
-          <span className="font-mono text-[10px] font-bold text-slate-600 block">[SYSTEM_CORE_ACTIVE]</span>
+    <>
+      {/* 📱 MOBILE NAVIGATION TRIGGER BAR (Hidden on Desktop) */}
+      <div className="md:hidden w-full bg-white border-b-4 border-black p-3 flex items-center justify-between sticky top-0 z-50 shrink-0">
+        <div className="border-2 border-black bg-yellow-300 px-2 py-0.5 font-black text-sm shadow-[1.5px_1.5px_0px_0px_rgba(0,0,0,1)]">
+          APEX
         </div>
+        <Button
+          variant="outline"
+          onClick={() => setMobileOpen(!mobileOpen)}
+          className="border-2 border-black h-9 w-9 p-0 flex items-center justify-center bg-white shadow-[1.5px_1.5px_0px_0px_rgba(0,0,0,1)]"
+        >
+          {mobileOpen ? (
+            <X className="w-4 h-4 stroke-[2.5]" />
+          ) : (
+            <Menu className="w-4 h-4 stroke-[2.5]" />
+          )}
+        </Button>
+      </div>
 
-        {/* User Metric Block Widget */}
-        <div className="border-2 border-black bg-[#F1EFE6] p-3 text-center space-y-2">
-          <div className="flex items-center justify-center gap-1 bg-orange-400 text-black border-2 border-black py-0.5 px-2 font-mono text-xs font-black uppercase">
-            <Flame className="w-3.5 h-3.5 fill-black" />
-            <span>Streak: 05 Days</span>
+      {/* 🖥️ DESKTOP HOVER SIDEBAR + MOBILE FLYOUT SLATE */}
+      <aside
+        className={`
+          /* Structural Layout Core Pinned Settings */
+          fixed md:sticky top-0 left-0 h-screen z-40 bg-white flex flex-col justify-between border-black transition-all duration-200 ease-in-out shrink-0
+          
+          /* Desktop Behavior: Compact like VS Code, expands natively on Hover */
+          hidden md:flex border-r-4 w-[56px] hover:w-64 p-2 hover:p-5 group/sidebar
+          
+          /* Mobile Overrides: Controlled exclusively via state toggle click */
+          ${mobileOpen ? "flex w-64 p-5 border-r-4 border-b-4" : "max-md:hidden"}
+        `}
+      >
+        <div className="space-y-6 overflow-x-hidden w-full">
+          {/* 1. App Logo Module Block */}
+          <div className="w-full flex items-center">
+            {/* Collapsed state placeholder view */}
+            <div className="border-2 border-black bg-yellow-300 h-9 w-9 flex items-center justify-center font-black text-sm shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] select-none text-black shrink-0 group-hover/sidebar:hidden max-md:hidden">
+              A
+            </div>
+            {/* Expanded state / Mobile header view */}
+            <div className="border-2 border-black bg-yellow-300 px-3 py-1.5 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] text-center w-full hidden group-hover/sidebar:block max-md:block animate-in fade-in duration-100">
+              <h1 className="text-xl font-black tracking-tighter uppercase text-black">
+                APEX
+              </h1>
+            </div>
           </div>
-          <p className="font-mono text-[10px] font-bold text-slate-500 uppercase">Alex // Rank: Prince</p>
+
+          {/* 2. Gamified Daily Streak Module Block */}
+          <div className="border-2 border-black bg-[#F1EFE6] p-1.5 group-hover/sidebar:p-2.5 text-center transition-all w-full flex flex-col items-center justify-center">
+            <div className="flex items-center justify-center gap-1 bg-orange-400 text-black border-2 border-black h-9 w-9 group-hover/sidebar:w-full group-hover/sidebar:h-auto py-1 px-1.5 font-mono text-xs font-black uppercase shadow-[1.5px_1.5px_0px_0px_rgba(0,0,0,1)] max-md:w-full max-md:h-auto shrink-0">
+              <Flame className="w-4 h-4 fill-black shrink-0" />
+              <span className="hidden group-hover/sidebar:inline max-md:inline ml-0.5">
+                05 Days
+              </span>
+            </div>
+            <p className="font-mono text-[9px] font-bold text-slate-500 uppercase mt-1.5 tracking-tight hidden group-hover/sidebar:block max-md:block whitespace-nowrap">
+              Alex // Rank: Prince
+            </p>
+          </div>
+
+          {/* 3. Navigation Anchor Links Matrix Array */}
+
+          
+          <nav className="flex flex-col gap-3 w-full">
+        
+            <Link
+              href="/chat"
+              className="w-full"
+              onClick={() => setMobileOpen(false)}
+            >
+              <Button
+                variant={isActive("/dashboard") ? "default" : "outline"}
+                className={`w-full font-black text-xs uppercase border-2 border-black h-11 p-0 group-hover/sidebar:px-3 max-md:px-3 ${
+                  isActive("/dashboard") ? "bg-cyan-300" : "bg-white"
+                } justify-center group-hover/sidebar:justify-start max-md:justify-start`}
+              >
+                <MessagesSquare className="w-4 h-4 stroke-[2.5] shrink-0" />
+                <span className="hidden group-hover/sidebar:inline max-md:inline ml-2">
+                   Chat
+                </span>
+              </Button>
+            </Link>
+          
+          
+            <Link
+              href="/userdashboard"
+              className="w-full"
+              onClick={() => setMobileOpen(false)}
+            >
+              <Button
+                variant={isActive("/dashboard") ? "default" : "outline"}
+                className={`w-full font-black text-xs uppercase border-2 border-black h-11 p-0 group-hover/sidebar:px-3 max-md:px-3 ${
+                  isActive("/dashboard") ? "bg-cyan-300" : "bg-white"
+                } justify-center group-hover/sidebar:justify-start max-md:justify-start`}
+              >
+                <LayoutDashboard className="w-4 h-4 stroke-[2.5] shrink-0" />
+                <span className="hidden group-hover/sidebar:inline max-md:inline ml-2">
+                  Dashboard
+                </span>
+              </Button>
+            </Link>
+
+            <Link
+              href="/workspace"
+              className="w-full"
+              onClick={() => setMobileOpen(false)}
+            >
+              <Button
+                variant={isActive("/workspace") ? "default" : "outline"}
+                className={`w-full font-black text-xs uppercase border-2 border-black h-11 p-0 group-hover/sidebar:px-3 max-md:px-3 ${
+                  isActive("/workspace") ? "bg-purple-300" : "bg-white"
+                } justify-center group-hover/sidebar:justify-start max-md:justify-start`}
+              >
+                <Folder className="w-4 h-4 stroke-[2.5] shrink-0" />
+                <span className="hidden group-hover/sidebar:inline max-md:inline ml-2">
+                  Workspace
+                </span>
+              </Button>
+            </Link>
+
+            <Link
+              href="/settings"
+              className="w-full"
+              onClick={() => setMobileOpen(false)}
+            >
+              <Button
+                variant={isActive("/settings") ? "default" : "outline"}
+                className={`w-full font-black text-xs uppercase border-2 border-black h-11 p-0 group-hover/sidebar:px-3 max-md:px-3 ${
+                  isActive("/settings") ? "bg-emerald-300" : "bg-white"
+                } justify-center group-hover/sidebar:justify-start max-md:justify-start`}
+              >
+                <Settings className="w-4 h-4 stroke-[2.5] shrink-0" />
+                <span className="hidden group-hover/sidebar:inline max-md:inline ml-2">
+                  Settings
+                </span>
+              </Button>
+            </Link>
+          </nav>
         </div>
 
-        {/* Vertical Navigation Links referencing layout paths */}
-        <div className="flex flex-col gap-2.5 pt-2">
-          <Link href="/dashboard" className="w-full">
-            <Button 
-              variant={isActive('/dashboard') ? "default" : "outline"} 
-              className={`w-full justify-start font-black text-xs uppercase border-2 border-black h-11 ${isActive('/dashboard') ? 'bg-cyan-300' : 'bg-white'}`}
-            >
-              <FileText className="w-4 h-4 mr-2 stroke-[2.5]" />
-              Dashboard
-            </Button>
-          </Link>
+        {/* 4. Bottom Profile Section (Replaces Github block) */}
+        <div className="pt-4 border-t-2 border-black border-dashed mt-6 w-full flex flex-col gap-3">
+          <div className="hidden group-hover/sidebar:flex max-md:flex items-center gap-2 font-mono text-[9px] font-bold text-slate-400 uppercase whitespace-nowrap">
+            <Terminal className="w-3.5 h-3.5 shrink-0" />
+            <span>Engine: Aristotle v1</span>
+          </div>
 
-          <Link href="/workspace" className="w-full">
-            <Button 
-              variant={isActive('/workspace') ? "default" : "outline"} 
-              className={`w-full justify-start font-black text-xs uppercase border-2 border-black h-11 ${isActive('/workspace') ? 'bg-purple-300' : 'bg-white'}`}
-            >
-              <FolderKanban className="w-4 h-4 mr-2 stroke-[2.5]" />
-              Workspace
-            </Button>
-          </Link>
-
-          <Link href="/settings" className="w-full">
-            <Button 
-              variant={isActive('/settings') ? "default" : "outline"} 
-              className={`w-full justify-start font-black text-xs uppercase border-2 border-black h-11 ${isActive('/settings') ? 'bg-emerald-300' : 'bg-white'}`}
-            >
-              <Settings className="w-4 h-4 mr-2 stroke-[2.5]" />
-              Settings
-            </Button>
-          </Link>
+          {/* User Profile Avatar Frame Integration */}
+          <div className="w-full flex items-center justify-center group-hover/sidebar:justify-start max-md:justify-start gap-3">
+            {/* Standard Profile Picture Frame (Using a placeholder image) */}
+            <img
+              src="https://unsplash.com"
+              alt="User profile avatar snapshot"
+              className="w-9 h-9 border-2 border-black bg-purple-300 shadow-[1.5px_1.5px_0px_0px_#000] object-cover shrink-0 select-none"
+            />
+            <div className="hidden group-hover/sidebar:block max-md:block text-left font-mono leading-none truncate">
+              <p className="text-xs font-black uppercase text-black truncate">
+                Alex_Core
+              </p>
+              <span className="text-[9px] font-bold text-slate-400 uppercase">
+                [ONLINE]
+              </span>
+            </div>
+          </div>
         </div>
-      </div>
-
-      {/* Sidebar Technical Open Source Footer */}
-      <div className="pt-4 border-t-2 border-black border-dashed mt-6 space-y-3 hidden md:block">
-        <div className="flex items-center gap-2 font-mono text-[9px] font-bold text-slate-400 uppercase">
-          <Terminal className="w-3.5 h-3.5" />
-          <span>Runtime: Turbopack</span>
-        </div>
-        <a href="https://github.com" target="_blank" rel="noreferrer" className="block w-full">
-          <Button variant="outline" className="w-full font-black text-xs uppercase border-2 border-black bg-pink-300 h-9 flex items-center justify-center">
-
-            Open Source Repo
-          </Button>
-        </a>
-      </div>
-
-    </aside>
+      </aside>
+    </>
   );
 }
-
