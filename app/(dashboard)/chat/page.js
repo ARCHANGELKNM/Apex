@@ -101,7 +101,7 @@ export default function RetroChatRoom() {
 
         <Button
           variant="pink"
-          className="border-2 border-black p-3 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] h-11 w-11 flex items-center justify-center shrink-0"
+          className="border-2 border-black p-3 shadow-[2px_2``px_0px_0px_rgba(0,0,0,1)] h-11 w-11 flex items-center justify-center shrink-0"
           
         >
           <ArrowUp className="w-5 h-5 stroke-[2.5]" />

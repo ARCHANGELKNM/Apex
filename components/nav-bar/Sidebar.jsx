@@ -14,8 +14,11 @@ import {
   X,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { LogoutLink } from "@kinde-oss/kinde-auth-nextjs/components";
 
-export default function Sidebar() {
+
+
+export default function Sidebar({user}) {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
   const isActive = (path) => pathname === path;
@@ -83,9 +86,7 @@ export default function Sidebar() {
 
           {/* 3. Navigation Anchor Links Matrix Array */}
 
-          
           <nav className="flex flex-col gap-3 w-full">
-        
             <Link
               href="/chat"
               className="w-full"
@@ -99,12 +100,11 @@ export default function Sidebar() {
               >
                 <MessagesSquare className="w-4 h-4 stroke-[2.5] shrink-0" />
                 <span className="hidden group-hover/sidebar:inline max-md:inline ml-2">
-                   Chat
+                  Chat
                 </span>
               </Button>
             </Link>
-          
-          
+
             <Link
               href="/userdashboard"
               className="w-full"
@@ -163,26 +163,26 @@ export default function Sidebar() {
 
         {/* 4. Bottom Profile Section (Replaces Github block) */}
         <div className="pt-4 border-t-2 border-black border-dashed mt-6 w-full flex flex-col gap-3">
-          <div className="hidden group-hover/sidebar:flex max-md:flex items-center gap-2 font-mono text-[9px] font-bold text-slate-400 uppercase whitespace-nowrap">
-            <Terminal className="w-3.5 h-3.5 shrink-0" />
-            <span>Engine: Aristotle v1</span>
-          </div>
-
-          {/* User Profile Avatar Frame Integration */}
+          {/* User Profile Avatar Frame */}
           <div className="w-full flex items-center justify-center group-hover/sidebar:justify-start max-md:justify-start gap-3">
-            {/* Standard Profile Picture Frame (Using a placeholder image) */}
             <img
-              src="https://unsplash.com"
-              alt="User profile avatar snapshot"
+              src={
+                user?.picture ||
+                "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80"
+              }
+              alt="User profile avatar"
               className="w-9 h-9 border-2 border-black bg-purple-300 shadow-[1.5px_1.5px_0px_0px_#000] object-cover shrink-0 select-none"
             />
             <div className="hidden group-hover/sidebar:block max-md:block text-left font-mono leading-none truncate">
+              {/* Display Real Name */}
               <p className="text-xs font-black uppercase text-black truncate">
-                Alex_Core
+                {user?.given_name || "Student"}
               </p>
-              <span className="text-[9px] font-bold text-slate-400 uppercase">
-                [ONLINE]
-              </span>
+
+              {/* Logout Trigger */}
+              <LogoutLink className="text-[9px] font-bold text-red-500 uppercase hover:underline cursor-pointer">
+                [LOG OUT]
+              </LogoutLink>
             </div>
           </div>
         </div>

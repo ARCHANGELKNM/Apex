@@ -1,26 +1,37 @@
-import { createOpenAI } from "@ai-sdk/openai";
-import { streamText } from "ai";
+import OpenAI from "openai";
+import { OpenAIStream, StreamingTextResponse } from "ai";
 
-const groq = createOpenAI({
-  baseURL: "https://api.groq.com/openai/v1",
-  apiKey: process.env.GROQ_API_KEY,
+export const runtime = "edge"; // Optional: Makes it faster on Vercel
+
+const openai = new OpenAI({
+  apiKey: process.env.GROQ_API_KEY || "",
+  baseURL: "https://api.groq.com/openai/v1", // 👈 Pointing to Groq
 });
 
 export async function POST(req) {
   try {
+    // 1. Get the message
     const { messages } = await req.json();
 
-    const result = streamText({
-      model: groq("llama-3.2-11b-vision-preview"),
-      // Remove any helper function and pass the array directly
-      messages: messages, 
-      system: "You are Apex, an elite AI academic tutor. Be concise.",
+    // 2. Log for debugging
+    console.log("🔥 Connecting to Groq via Direct Client...");
+
+    // 3. Create the Completion
+    const response = await openai.chat.completions.create({
+      model: "llama-3.1-8b-instant",
+      stream: true,
+      messages: messages,
     });
 
-    // Use the latest standard response method
-    return result.toDataStreamResponse();
+    // 4. Convert to Stream (The "Old Reliable" Way)
+    const stream = OpenAIStream(response);
+
+    // 5. Return the Stream
+    return new StreamingTextResponse(stream);
   } catch (error) {
-    console.error("APEX ROUTE ERROR:", error);
-    return new Response(JSON.stringify({ error: error.message }), { status: 500 });
+    console.error("💥 CRASH:", error);
+    return new Response(JSON.stringify({ error: error.message }), {
+      status: 500,
+    });
   }
 }
