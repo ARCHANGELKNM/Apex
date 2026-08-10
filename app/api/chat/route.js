@@ -1,33 +1,51 @@
 import OpenAI from "openai";
-import { OpenAIStream, StreamingTextResponse } from "ai";
 
-export const runtime = "edge"; // Optional: Makes it faster on Vercel
+export const runtime = "edge";
 
 const openai = new OpenAI({
-  apiKey: process.env.GROQ_API_KEY || "",
-  baseURL: "https://api.groq.com/openai/v1", // 👈 Pointing to Groq
+  apiKey: process.env.GROQ_API_KEY,
+  baseURL: "https://api.groq.com/openai/v1",
 });
 
 export async function POST(req) {
   try {
-    // 1. Get the message
     const { messages } = await req.json();
 
-    // 2. Log for debugging
-    console.log("🔥 Connecting to Groq via Direct Client...");
+    // 🧹 SANITIZE: Remove 'id' field, keep only 'role' and 'content'
+    const cleanMessages = messages.map(({ role, content }) => ({
+      role,
+      content,
+    }));
 
-    // 3. Create the Completion
+    // 2. call Groq directly
     const response = await openai.chat.completions.create({
       model: "llama-3.1-8b-instant",
       stream: true,
-      messages: messages,
+      messages: cleanMessages, // 👈 Send the clean version
     });
 
-    // 4. Convert to Stream (The "Old Reliable" Way)
-    const stream = OpenAIStream(response);
+    // 3. Create a raw web stream
+    const stream = new ReadableStream({
+      async start(controller) {
+        const encoder = new TextEncoder();
+        try {
+          for await (const chunk of response) {
+            const content = chunk.choices[0]?.delta?.content;
+            if (content) {
+              controller.enqueue(encoder.encode(content));
+            }
+          }
+        } catch (err) {
+          controller.error(err);
+        } finally {
+          controller.close();
+        }
+      },
+    });
 
-    // 5. Return the Stream
-    return new StreamingTextResponse(stream);
+    return new Response(stream, {
+      headers: { "Content-Type": "text/plain; charset=utf-8" },
+    });
   } catch (error) {
     console.error("💥 CRASH:", error);
     return new Response(JSON.stringify({ error: error.message }), {

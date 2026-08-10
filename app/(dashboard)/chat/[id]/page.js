@@ -8,11 +8,9 @@ import Link from "next/link";
 import { useParams } from "next/navigation";
 import {
   ArrowLeft,
-  ArrowUp,
   Terminal,
   User,
   Cpu,
-  AlertCircle,
 } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -268,33 +266,25 @@ export default function RetroChatRoom() {
             </div>
           ))}
 
-        {error && (
-          <div className="bg-red-100 border-2 border-red-600 p-4 text-red-700 font-bold flex items-center gap-2">
-            <AlertCircle className="w-5 h-5" />
-            ERROR: {error}
-          </div>
-        )}
         <div ref={bottomRef} />
       </div>
 
-      <form
-        onSubmit={handleSend}
-        className="border-t-4 border-black p-4 bg-white flex flex-col gap-3 shrink-0"
-      >
-        <input
-          className="flex-1 p-3 border-2 border-black font-mono text-sm bg-[#F9F6EE] font-bold focus:outline-none focus:bg-white h-12 placeholder:text-slate-400"
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          placeholder="Type here..."
-        />
-
-        <button
-          type="submit"
-          disabled={isLoading || !input.trim()}
-          className="border-2 border-black bg-pink-500 hover:bg-pink-400 text-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] h-12 w-12 flex items-center justify-center shrink-0 disabled:opacity-50 disabled:bg-gray-300 transition-all active:translate-y-1 active:shadow-none"
-        >
-          <ArrowUp className="w-6 h-6 stroke-3" />
-        </button>
+      <form onSubmit={handleSend} className="border-t-4 border-black p-4 bg-white flex flex-col gap-3">
+        <div className="flex items-center justify-between gap-3">
+          <span className="text-xs font-black uppercase tracking-tight text-slate-700">Apex assistant</span>
+          {error && <span className="text-xs text-red-600">{error}</span>}
+        </div>
+        <div className="flex gap-3">
+          <input
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            placeholder="Ask your workspace tutor..."
+            className="flex-1 border-2 border-black p-3 outline-none text-sm"
+          />
+          <Button type="submit" disabled={isLoading} className="border-2 border-black bg-black text-white hover:bg-slate-900">
+            Send
+          </Button>
+        </div>
       </form>
     </div>
   );

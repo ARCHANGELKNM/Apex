@@ -50,7 +50,7 @@ export default function Sidebar({user}) {
           fixed md:sticky top-0 left-0 h-screen z-40 bg-white flex flex-col justify-between border-black transition-all duration-200 ease-in-out shrink-0
           
           /* Desktop Behavior: Compact like VS Code, expands natively on Hover */
-          hidden md:flex border-r-4 w-[56px] hover:w-64 p-2 hover:p-5 group/sidebar
+          md:flex border-r-4 w-14 hover:w-64 p-2 hover:p-5 group/sidebar
           
           /* Mobile Overrides: Controlled exclusively via state toggle click */
           ${mobileOpen ? "flex w-64 p-5 border-r-4 border-b-4" : "max-md:hidden"}
@@ -162,18 +162,18 @@ export default function Sidebar({user}) {
         </div>
 
         {/* 4. Bottom Profile Section (Replaces Github block) */}
-        <div className="pt-4 border-t-2 border-black border-dashed mt-6 w-full flex flex-col gap-3">
+        <div className="  pt-4 border-t-2 border-black border-dashed mt-6 w-full flex flex-col gap-3">
           {/* User Profile Avatar Frame */}
-          <div className="w-full flex items-center justify-center group-hover/sidebar:justify-start max-md:justify-start gap-3">
+          <div className="w-full  flex items-center justify-center group-hover/sidebar:justify-start max-md:justify-start gap-3">
             <img
               src={
                 user?.picture ||
                 "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80"
               }
               alt="User profile avatar"
-              className="w-9 h-9 border-2 border-black bg-purple-300 shadow-[1.5px_1.5px_0px_0px_#000] object-cover shrink-0 select-none"
+              className="w-9 rounded-full h-9 border-2 border-black bg-purple-300 shadow-[1.5px_1.5px_0px_0px_#000] object-cover shrink-0 select-none"
             />
-            <div className="hidden group-hover/sidebar:block max-md:block text-left font-mono leading-none truncate">
+            <div className="hidden  group-hover/sidebar:block max-md:block text-left font-mono leading-none truncate">
               {/* Display Real Name */}
               <p className="text-xs font-black uppercase text-black truncate">
                 {user?.given_name || "Student"}

@@ -35,7 +35,7 @@ export default function RetroDashboard() {
         {/* Dynamic Navigation & Metric Grid Panels */}
         <div className="md:col-span-2 grid grid-cols-1 sm:grid-cols-3 gap-6">
           <Link href="/workspace" className="sm:col-span-2">
-            <Card variant="brutal" className="bg-cyan-300 border-4 border-black p-6 h-full min-h-[160px] shadow-[6px_6px_0px_0px_#000] flex flex-col justify-between hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none transition-all cursor-pointer group">
+            <Card variant="brutal" className="bg-cyan-300 border-4 border-black p-6 h-full min-h-40 shadow-[6px_6px_0px_0px_#000] flex flex-col justify-between hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none transition-all cursor-pointer group">
               <div className="border-2 border-black bg-white p-2 w-fit shadow-[2px_2px_0px_0px_#000]">
                 <BookOpen className="w-6 h-6 text-black stroke-[2.5]" />
               </div>
@@ -67,7 +67,7 @@ export default function RetroDashboard() {
           <Trophy className="w-5 h-5 text-yellow-500 fill-yellow-400 stroke-black" /> Weekly Growth Chart Vector
         </h3>
         <div className="h-64 bg-[#F1EFE6] border-2 border-black flex flex-col items-center justify-center font-mono font-bold text-xs uppercase p-4 relative">
-          <div className="absolute inset-0 opacity-10 bg-[linear-gradient(to_right,#000_1px,transparent_1px),linear-gradient(to_bottom,#000_1px,transparent_1px)] bg-[size:16px_16px]"></div>
+          <div className="absolute inset-0 opacity-10 bg-[linear-gradient(to_right,#000_1px,transparent_1px),linear-gradient(to_bottom,#000_1px,transparent_1px)] bg-size-[16px_16px]"></div>
           <Sparkles className="w-8 h-8 text-black mb-2 animate-pulse" />
           <span>[RetroUI Line Graph Pipeline Active]</span>
         </div>
