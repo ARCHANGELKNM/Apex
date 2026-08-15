@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
@@ -16,12 +16,30 @@ import {
 import { Button } from "@/components/ui/button";
 import { LogoutLink } from "@kinde-oss/kinde-auth-nextjs/components";
 
-
-
-export default function Sidebar({user}) {
+export default function Sidebar({ user }) {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const closeButtonRef = useRef(null);
   const isActive = (path) => pathname === path;
+
+  useEffect(() => {
+    function handleKey(e) {
+      if (e.key === "Escape") setMobileOpen(false);
+    }
+    if (mobileOpen) {
+      document.addEventListener("keydown", handleKey);
+      // focus close button for keyboard users
+      setTimeout(() => closeButtonRef.current?.focus(), 50);
+      document.body.style.overflow = "hidden";
+    } else {
+      document.removeEventListener("keydown", handleKey);
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.removeEventListener("keydown", handleKey);
+      document.body.style.overflow = "";
+    };
+  }, [mobileOpen]);
 
   return (
     <>
@@ -33,6 +51,9 @@ export default function Sidebar({user}) {
         <Button
           variant="outline"
           onClick={() => setMobileOpen(!mobileOpen)}
+          ref={closeButtonRef}
+          aria-expanded={mobileOpen}
+          aria-controls="apex-sidebar"
           className="border-2 border-black h-9 w-9 p-0 flex items-center justify-center bg-white shadow-[1.5px_1.5px_0px_0px_rgba(0,0,0,1)]"
         >
           {mobileOpen ? (
@@ -54,15 +75,16 @@ export default function Sidebar({user}) {
       )}
 
       <aside
+        id="apex-sidebar"
         className={`
           /* Structural Layout Core Pinned Settings */
-          fixed md:sticky top-0 left-0 md:h-screen z-40 bg-white flex flex-col justify-between border-black transition-all duration-200 ease-in-out shrink-0
-          
+          fixed top-0 left-0 h-screen z-40 bg-white flex flex-col justify-between border-black transition-all duration-200 ease-in-out transform shrink-0
+
           /* Desktop Behavior: Compact like VS Code, expands natively on Hover */
-          md:flex md:w-14 border-r-4 w-14 hover:w-64 p-2 hover:p-5 group/sidebar
-          
-          /* Mobile Overrides: Controlled exclusively via state toggle click */
-          ${mobileOpen ? "flex w-64 p-5 border-r-4 border-b-4 z-40" : "max-md:hidden"}
+          md:sticky md:flex md:w-14 md:translate-x-0 md:border-r-4 w-64 md:p-2 p-5 group/sidebar
+
+          /* Mobile slide-in/out */
+          ${mobileOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"}
         `}
       >
         <div className="space-y-6 overflow-x-hidden w-full">
