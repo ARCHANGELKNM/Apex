@@ -13,7 +13,7 @@ export default function RetroHomepage() {
       
       <div className="mx-auto w-fit">
         <Badge variant="lime" className="border-2 border-black uppercase tracking-widest text-xs font-black shadow-[2px_2px_0px_0px_#000]">
-          ⚡ 100% Free & Open Source ⚡
+           100% Free & Open Source 
         </Badge>
       </div>
 
@@ -39,12 +39,12 @@ export default function RetroHomepage() {
             Select a primary sign-up gateway to open up your custom curriculum records.
           </p>
           <div className="space-y-3">
-            <Link href="/dashboard" className="block">
+            <Link href="/userdashboard" className="block">
               <Button variant="cyan" className="w-full flex items-center justify-between border-2 border-black font-black uppercase text-sm shadow-[3px_3px_0px_0px_#000]">
                 Continue with Google <ArrowRight className="w-4 h-4 stroke-[2.5]" />
               </Button>
             </Link>
-            <Link href="/dashboard" className="block">
+            <Link href="/userdashboard" className="block">
               <Button variant="purple" className="w-full flex items-center justify-between border-2 border-black font-black uppercase text-sm shadow-[3px_3px_0px_0px_#000]">
                 Email Magic Link <ArrowRight className="w-4 h-4 stroke-[2.5]" />
               </Button>

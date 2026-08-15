@@ -281,7 +281,8 @@ export default function RetroChatRoom() {
         onSubmit={handleSend}
         className="border-t-4 border-black p-4 bg-white flex flex-col gap-3 shrink-0"
       >
-        <input
+       <div className ={" flex gap-3 "}>
+            <input
           className="flex-1 p-3 border-2 border-black font-mono text-sm bg-[#F9F6EE] font-bold focus:outline-none focus:bg-white h-12 placeholder:text-slate-400"
           value={input}
           onChange={(e) => setInput(e.target.value)}
@@ -294,7 +295,8 @@ export default function RetroChatRoom() {
           className="border-2 border-black bg-pink-500 hover:bg-pink-400 text-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] h-12 w-12 flex items-center justify-center shrink-0 disabled:opacity-50 disabled:bg-gray-300 transition-all active:translate-y-1 active:shadow-none"
         >
           <ArrowUp className="w-6 h-6 stroke-3" />
-        </button>
+        </button> 
+      </div>
       </form>
     </div>
   );

@@ -96,7 +96,7 @@ export default function CreateProjectBtn() {
     return (
       <form
         onSubmit={createProject}
-        className="h-full border-4 border-black p-6 bg-black text-white flex flex-col justify-center shadow-[6px_6px_0px_0px_rgba(0,0,0,1)]"
+        className="h-full border-4 border-black p-6  flex flex-col justify-center shadow-[6px_6px_0px_0px_rgba(0,0,0,1)]"
       >
         <div className="mb-4">
           <span className="text-[10px] font-bold text-gray-400 uppercase">
@@ -108,7 +108,7 @@ export default function CreateProjectBtn() {
         <Input
           autoFocus
           placeholder="e.g. Calculus Q3..."
-          className="border-2 border-white bg-transparent text-white mb-3 rounded-none font-bold font-mono placeholder:text-gray-600 focus-visible:ring-0"
+          className="border-2 border-white bg-transparent  mb-3 rounded-none font-bold font-mono placeholder:text-gray-600 focus-visible:ring-0"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
         />
@@ -125,7 +125,7 @@ export default function CreateProjectBtn() {
             type="button"
             onClick={() => setStep(1)}
             variant="outline"
-            className="border-2 border-white text-white bg-transparent rounded-none font-bold hover:bg-white hover:text-black"
+            className="border-2 border-white  bg-transparent rounded-none font-bold hover:bg-white hover:text-black"
           >
             BACK
           </Button>
@@ -138,12 +138,12 @@ export default function CreateProjectBtn() {
   return (
     <button
       onClick={() => setIsOpen(true)}
-      className="group h-full min-h-62.5 border-4 border-black border-dashed bg-transparent hover:bg-gray-100 transition-all cursor-pointer flex flex-col items-center justify-center gap-4"
+      className="group h-8 w-8 bg-transparent hover:bg-gray-100 transition-all cursor-pointer flex flex-col items-center justify-center gap-4"
     >
       <div className="bg-black text-white p-4 rounded-full group-hover:scale-110 transition-transform shadow-[4px_4px_0px_0px_rgba(0,0,0,0.3)]">
-        <Plus className="w-8 h-8" />
+        <Plus className="w-4 h-4" />
       </div>
-      <span className="font-black uppercase text-xl">New Task</span>
+
     </button>
   );
 }
