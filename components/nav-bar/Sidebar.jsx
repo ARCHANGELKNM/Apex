@@ -16,7 +16,9 @@ import {
 import { Button } from "@/components/ui/button";
 import { LogoutLink } from "@kinde-oss/kinde-auth-nextjs/components";
 
-export default function Sidebar({ user }) {
+
+
+export default function Sidebar({user}) {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
   const closeButtonRef = useRef(null);
@@ -51,7 +53,6 @@ export default function Sidebar({ user }) {
         <Button
           variant="outline"
           onClick={() => setMobileOpen(!mobileOpen)}
-          ref={closeButtonRef}
           aria-expanded={mobileOpen}
           aria-controls="apex-sidebar"
           className="border-2 border-black h-9 w-9 p-0 flex items-center justify-center bg-white shadow-[1.5px_1.5px_0px_0px_rgba(0,0,0,1)]"
@@ -123,17 +124,17 @@ export default function Sidebar({ user }) {
               className="w-full"
               onClick={() => setMobileOpen(false)}
             >
-              <Button
-                variant={isActive("/dashboard") ? "default" : "outline"}
-                className={`w-full font-black text-xs uppercase border-2 border-black h-11 p-0 group-hover/sidebar:px-3 max-md:px-3 ${
-                  isActive("/dashboard") ? "bg-cyan-300" : "bg-white"
-                } justify-center group-hover/sidebar:justify-start max-md:justify-start`}
-              >
-                <MessagesSquare className="w-4 h-4 stroke-[2.5] shrink-0" />
-                <span className="hidden group-hover/sidebar:inline max-md:inline ml-2">
-                  Chat
-                </span>
-              </Button>
+                  <Button
+                    variant={isActive("/dashboard") ? "default" : "outline"}
+                    className={`w-full font-black text-xs uppercase border-2 border-black h-11 p-0 group-hover/sidebar:px-3 max-md:px-3 ${
+                      isActive("/dashboard") ? "bg-cyan-300" : "bg-white"
+                    } justify-center group-hover/sidebar:justify-start max-md:justify-start`}
+                  >
+                    <MessagesSquare className="w-4 h-4 stroke-[2.5] shrink-0" />
+                    <span className="hidden group-hover/sidebar:inline max-md:inline ml-2">
+                      Chat
+                    </span>
+                  </Button>
             </Link>
 
             <Link
