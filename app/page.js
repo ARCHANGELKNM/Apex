@@ -49,7 +49,7 @@ export default function RetroHomepage() {
             records.
           </p>
           <div className="space-y-3">
-            <Link href="/userDashboard" className="block">
+            <Link href="/userdashboard" className="block">
               <Button
                 variant="cyan"
                 className="w-full flex items-center justify-between border-2 border-black font-black uppercase text-sm shadow-[3px_3px_0px_0px_#000]"
@@ -58,7 +58,7 @@ export default function RetroHomepage() {
                 <ArrowRight className="w-4 h-4 stroke-[2.5]" />
               </Button>
             </Link>
-            <Link href="/userDashboard" className="block">
+            <Link href="/userdashboard" className="block">
               <Button
                 variant="purple"
                 className="w-full flex items-center justify-between border-2 border-black font-black uppercase text-sm shadow-[3px_3px_0px_0px_#000]"

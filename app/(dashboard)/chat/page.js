@@ -158,7 +158,7 @@ export default function RetroChatRoom() {
     <div className="h-[calc(100dvh-6rem)] md:h-[calc(100dvh-4rem)] flex flex-col bg-white">
       <div className="border-b-4 border-black p-4 bg-purple-300 flex items-center justify-between gap-3 shrink-0">
         <div className="flex items-center gap-3 min-w-0">
-          <Link href="/userDashboard">
+          <Link href="/userdashboard">
             <Button
               variant="outline"
               className="border-2 border-black p-1 bg-white shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] h-8 w-8 flex items-center justify-center"

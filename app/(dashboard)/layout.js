@@ -9,7 +9,7 @@ export default async function DashboardGroupLayout({ children }) {
   const user = await getUser();
 
    if (!(await isAuthenticated())) {
-    redirect("/api/auth/login?post_login_redirect_url=/userDashboard");
+    redirect("/api/auth/login?post_login_redirect_url=/userdashboard");
   }
 
   return (
