@@ -155,9 +155,9 @@ export default function RetroChatRoom() {
   };
 
   return (
-    <div className="h-full flex flex-col bg-white">
-      <div className="border-b-4 border-black p-4 bg-purple-300 flex items-center justify-between shrink-0">
-        <div className="flex items-center gap-3">
+    <div className="h-[calc(100dvh-6rem)] md:h-[calc(100dvh-4rem)] flex flex-col bg-white">
+      <div className="border-b-4 border-black p-4 bg-purple-300 flex items-center justify-between gap-3 shrink-0">
+        <div className="flex items-center gap-3 min-w-0">
           <Link href="/userdashboard">
             <Button
               variant="outline"
@@ -166,18 +166,18 @@ export default function RetroChatRoom() {
               <ArrowLeft className="w-4 h-4 stroke-[2.5]" />
             </Button>
           </Link>
-          <div>
-            <h3 className="font-black uppercase text-sm tracking-tight text-black">
+          <div className="min-w-0">
+            <h3 className="font-black uppercase text-sm tracking-tight text-black truncate">
               PROTOCOL: {subject}
             </h3>
             <span className="font-mono text-[10px] font-bold text-slate-700 uppercase flex items-center gap-1">
-              <Cpu className="w-3 h-3" /> MANUAL_ENGINE_V8
+              <Cpu className="w-3 h-3 shrink-0" /> MANUAL_ENGINE_V8
             </span>
           </div>
         </div>
         <Badge
           variant="black"
-          className={`text-white text-[10px] font-mono font-bold ${isLoading ? "bg-red-500 animate-pulse" : "bg-black"}`}
+          className={`text-white text-[10px] font-mono font-bold shrink-0 ${isLoading ? "bg-red-500 animate-pulse" : "bg-black"}`}
         >
           {isLoading ? "COMPUTING..." : "LIVE_FEED"}
         </Badge>
@@ -281,22 +281,22 @@ export default function RetroChatRoom() {
         onSubmit={handleSend}
         className="border-t-4 border-black p-4 bg-white flex flex-col gap-3 shrink-0"
       >
-       <div className ={" flex gap-3 "}>
-            <input
-          className="flex-1 p-3 border-2 border-black font-mono text-sm bg-[#F9F6EE] font-bold focus:outline-none focus:bg-white h-12 placeholder:text-slate-400"
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          placeholder="Type here..."
-        />
-
-        <button
-          type="submit"
-          disabled={isLoading || !input.trim()}
-          className="border-2 border-black bg-pink-500 hover:bg-pink-400 text-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] h-12 w-12 flex items-center justify-center shrink-0 disabled:opacity-50 disabled:bg-gray-300 transition-all active:translate-y-1 active:shadow-none"
-        >
-          <ArrowUp className="w-6 h-6 stroke-3" />
-        </button> 
-      </div>
+        <div className="flex gap-3 w-full min-w-0">
+          <input
+            className="flex-1 min-w-0 p-3 border-2 border-black font-mono text-sm bg-[#F9F6EE] font-bold focus:outline-none focus:bg-white h-12 placeholder:text-slate-400"
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            placeholder="Type here..."
+          />
+          <button
+            type="submit"
+            aria-label="Send message"
+            disabled={isLoading || !input.trim()}
+            className="border-2 border-black bg-pink-500 hover:bg-pink-400 text-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] h-12 w-12 flex items-center justify-center shrink-0 disabled:opacity-50 disabled:bg-gray-300 transition-all active:translate-y-1 active:shadow-none"
+          >
+            <ArrowUp className="w-6 h-6 stroke-3" />
+          </button>
+        </div>
       </form>
     </div>
   );

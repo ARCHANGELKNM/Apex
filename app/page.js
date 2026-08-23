@@ -9,7 +9,7 @@ import { Badge } from '@/components/ui/badge';
 
 export default function RetroHomepage() {
   return (
-    <div className="space-y-12 max-w-4xl mx-auto text-center py-12 animate-in fade-in duration-200">
+    <div className="space-y-8 sm:space-y-12 max-w-4xl mx-auto text-center px-4 py-12 animate-in fade-in duration-200">
       
       <div className="mx-auto w-fit">
         <Badge variant="lime" className="border-2 border-black uppercase tracking-widest text-xs font-black shadow-[2px_2px_0px_0px_#000]">
@@ -18,9 +18,9 @@ export default function RetroHomepage() {
       </div>
 
       <div className="space-y-6">
-        <h1 className="text-5xl sm:text-7xl font-black tracking-tighter uppercase leading-[0.95]">
+        <h1 className="text-4xl sm:text-5xl md:text-7xl font-black tracking-tighter uppercase leading-[0.95]">
           The Smartest Tutor<br />
-          <span className="bg-yellow-300 border-4 border-black px-4 shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] inline-block my-2 -rotate-1">
+          <span className="bg-yellow-300 border-4 border-black px-3 sm:px-4 shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] inline-block my-2 -rotate-1">
             Tailored For You.
           </span>
         </h1>
@@ -30,7 +30,7 @@ export default function RetroHomepage() {
       </div>
 
       {/* RetroUI Card Entry Panel */}
-      <Card variant="brutal" className="max-w-md mx-auto bg-white border-4 border-black shadow-[8px_8px_0px_0px_#000] p-2 text-left">
+      <Card variant="brutal" className="max-w-md mx-auto bg-white border-4 border-black shadow-[8px_8px_0px_0px_#000] p-2 text-left w-full">
         <CardHeader className="border-b-2 border-black pb-2">
           <h3 className="text-xl font-black uppercase tracking-tight text-black">Initialize Session</h3>
         </CardHeader>

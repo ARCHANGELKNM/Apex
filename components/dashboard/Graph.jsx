@@ -55,9 +55,9 @@ export default function Graph () {
                circumference - (percent / 100) * circumference;
       
     return(
-      <div className={"flex"}>
-           <Card variant="brutal" className="p-6 border-4 border-black bg-white">
-        <svg height={radius * 2} width={radius * 2} className="shrink-0  flex flex-centre">
+      <div className="w-full h-full min-w-0">
+        <Card variant="brutal" className="p-4 sm:p-6 border-4 border-black bg-white w-full h-full flex items-center justify-center">
+        <svg height={radius * 2} width={radius * 2} className="shrink-0 max-w-full">
           <circle
             stroke="#e5e7eb"
             fill="transparent"

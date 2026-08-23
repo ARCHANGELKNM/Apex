@@ -13,13 +13,13 @@ export default function RetroSettings() {
   return (
     <div className="max-w-2xl mx-auto space-y-8 animate-in fade-in duration-200">
       {/* Settings Diagnostic System Banner */}
-      <div className="border-4 border-black bg-emerald-300 p-4 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] flex justify-between items-center">
-        <h2 className="text-xl font-black uppercase tracking-tight">
+      <div className="border-4 border-black bg-emerald-300 p-4 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3">
+        <h2 className="text-lg sm:text-xl font-black uppercase tracking-tight min-w-0">
           System Configuration // Calibrate User
         </h2>
         <Badge
           variant="black"
-          className="font-mono text-[10px] font-bold text-white uppercase"
+          className="font-mono text-[10px] font-bold text-white uppercase w-fit shrink-0"
         >
           CFG_STATE: OK
         </Badge>
@@ -30,8 +30,8 @@ export default function RetroSettings() {
         variant="brutal"
         className="bg-white border-4 border-black shadow-[6px_6px_0px_0px_#000] p-6"
       >
-        <CardHeader className="border-b-2 border-black pb-2 mb-4 flex flex-row items-center gap-2">
-          <GraduationCap className="w-5 h-5 stroke-[2.5]" />
+        <CardHeader className="border-b-2 border-black pb-2 mb-4 flex flex-row items-center gap-2 min-w-0">
+          <GraduationCap className="w-5 h-5 stroke-[2.5] shrink-0" />
           <h3 className="text-lg font-black uppercase tracking-tight">
             Academic Identity Tier
           </h3>
@@ -70,8 +70,8 @@ export default function RetroSettings() {
         variant="brutal"
         className="bg-white border-4 border-black shadow-[6px_6px_0px_0px_#000] p-6"
       >
-        <CardHeader className="border-b-2 border-black pb-2 mb-4 flex flex-row items-center gap-2">
-          <Type className="w-5 h-5 stroke-[2.5]" />
+        <CardHeader className="border-b-2 border-black pb-2 mb-4 flex flex-row items-center gap-2 min-w-0">
+          <Type className="w-5 h-5 stroke-[2.5] shrink-0" />
           <h3 className="text-lg font-black uppercase tracking-tight">
             Visual Interface Scaling
           </h3>
@@ -109,8 +109,8 @@ export default function RetroSettings() {
         variant="brutal"
         className="bg-white border-4 border-black shadow-[6px_6px_0px_0px_#000] p-6"
       >
-        <CardHeader className="border-b-2 border-black pb-2 mb-4 flex flex-row items-center gap-2 text-rose-600">
-          <ShieldAlert className="w-5 h-5 stroke-[2.5]" />
+        <CardHeader className="border-b-2 border-black pb-2 mb-4 flex flex-row items-center gap-2 text-rose-600 min-w-0">
+          <ShieldAlert className="w-5 h-5 stroke-[2.5] shrink-0" />
           <h3 className="text-lg font-black uppercase tracking-tight">
             Data Destruction & Privacy Zone
           </h3>
@@ -124,7 +124,7 @@ export default function RetroSettings() {
           <div className="pt-2">
             <Button
               variant="outline"
-              className="bg-rose-400 text-black border-2 border-black font-black text-xs uppercase px-5 py-3 h-auto shadow-[4px_4px_0px_0px_#000] hover:bg-rose-500"
+              className="bg-rose-400 text-black border-2 border-black font-black text-xs uppercase px-5 py-3 h-auto w-full sm:w-auto shadow-[4px_4px_0px_0px_#000] hover:bg-rose-500"
             >
               Purge Database Record & Erase Account
             </Button>

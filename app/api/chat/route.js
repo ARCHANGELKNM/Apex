@@ -19,7 +19,7 @@ export async function POST(req) {
 
     // 2. call Groq directly
     const response = await openai.chat.completions.create({
-      model: "llama-3.1-8b-instant",
+      model: "openai/gpt-oss-20b",
       stream: true,
       messages: cleanMessages, // 👈 Send the clean version
     });
