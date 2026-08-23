@@ -135,14 +135,14 @@ export default function Sidebar({ user }) {
             </Link>
 
             <Link
-              href="/userdashboard"
+              href="/userDashboard"
               className="w-full"
               onClick={() => setMobileOpen(false)}
             >
               <Button
-                variant={isActive("/userdashboard") ? "default" : "outline"}
+                variant={isActive("/userDashboard") ? "default" : "outline"}
                 className={`w-full font-black text-xs uppercase border-2 border-black h-11 p-0 md:group-hover/sidebar:px-3 max-md:px-3 ${
-                  isActive("/userdashboard") ? "bg-cyan-300" : "bg-white"
+                  isActive("/userDashboard") ? "bg-cyan-300" : "bg-white"
                 } justify-center md:group-hover/sidebar:justify-start max-md:justify-start`}
               >
                 <LayoutDashboard className="w-4 h-4 stroke-[2.5] shrink-0" />

@@ -13,5 +13,5 @@ export default withAuth(
 export const config = {
   // Only protect these specific folders.
   // The Homepage (/) remains public.
-  matcher: ["/userdashboard/:path*", "/workspace/:path*", "/settings/:path*"],
+  matcher: ["/userDashboard/:path*", "/workspace/:path*", "/settings/:path*"],
 };

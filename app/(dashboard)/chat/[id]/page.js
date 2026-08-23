@@ -156,7 +156,7 @@ export default function RetroChatRoom() {
     <div className="h-full flex flex-col bg-white">
       <div className="border-b-4 border-black p-4 bg-purple-300 flex items-center justify-between shrink-0">
         <div className="flex items-center gap-3">
-          <Link href="/userdashboard">
+          <Link href="/userDashboard">
             <Button
               variant="outline"
               className="border-2 border-black p-1 bg-white shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] h-8 w-8 flex items-center justify-center"
@@ -269,9 +269,14 @@ export default function RetroChatRoom() {
         <div ref={bottomRef} />
       </div>
 
-      <form onSubmit={handleSend} className="border-t-4 border-black p-4 bg-white flex flex-col gap-3">
+      <form
+        onSubmit={handleSend}
+        className="border-t-4 border-black p-4 bg-white flex flex-col gap-3"
+      >
         <div className="flex items-center justify-between gap-3">
-          <span className="text-xs font-black uppercase tracking-tight text-slate-700">Apex assistant</span>
+          <span className="text-xs font-black uppercase tracking-tight text-slate-700">
+            Apex assistant
+          </span>
           {error && <span className="text-xs text-red-600">{error}</span>}
         </div>
         <div className="flex gap-3">
@@ -281,7 +286,11 @@ export default function RetroChatRoom() {
             placeholder="Ask your workspace tutor..."
             className="flex-1 border-2 border-black p-3 outline-none text-sm"
           />
-          <Button type="submit" disabled={isLoading} className="border-2 border-black bg-black text-white hover:bg-slate-900">
+          <Button
+            type="submit"
+            disabled={isLoading}
+            className="border-2 border-black bg-black text-white hover:bg-slate-900"
+          >
             Send
           </Button>
         </div>
