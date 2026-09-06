@@ -44,7 +44,7 @@ export default function Sidebar({ user }) {
     <>
       {/* 📱 MOBILE NAVIGATION TRIGGER BAR (Hidden on Desktop) */}
       {/* 📱 MOBILE NAVIGATION TRIGGER BAR (Hidden on Desktop) */}
-      <div className="md:hidden w-full bg-white border-b-4 border-black p-4 flex flex-row items-center justify-between sticky top-0 left-0 right-0 z-50 h-16 box-border">
+      <div className="md:hidden w-full bg-white border-b-4 border-black px-4 py-3 flex flex-row items-center justify-between sticky top-0 left-0 right-0 z-50 h-18 box-border">
         <div className="border-2 border-black bg-yellow-300 px-3 py-1 font-black text-sm shadow-[1.5px_1.5px_0px_0px_rgba(0,0,0,1)] tracking-tighter uppercase text-black select-none">
           APEX
         </div>
@@ -53,7 +53,7 @@ export default function Sidebar({ user }) {
           onClick={() => setMobileOpen(!mobileOpen)}
           aria-expanded={mobileOpen}
           aria-controls="apex-sidebar"
-          className="border-2 border-black h-10 w-10 p-0 flex items-center justify-center bg-white shadow-[1.5px_1.5px_0px_0px_rgba(0,0,0,1)] hover:bg-slate-100 active:translate-x-px active:translate-y-px active:shadow-none transition-all"
+          className="border-2 border-black h-11 w-11 p-0 flex items-center justify-center bg-white shadow-[1.5px_1.5px_0px_0px_rgba(0,0,0,1)] hover:bg-slate-100 active:translate-x-px active:translate-y-px active:shadow-none transition-all"
         >
           {mobileOpen ? (
             <X className="w-5 h-5 stroke-[2.5] text-black" />
@@ -80,7 +80,7 @@ export default function Sidebar({ user }) {
           fixed top-0 left-0 h-screen z-50 bg-white flex flex-col justify-between border-black transition-all duration-200 ease-in-out transform shrink-0
           
           /* Desktop Behavior: Fixed sizing, native width expansions via Hover states */
-          md:z-30 md:w-14 md:hover:w-64 md:translate-x-0 md:border-r-4 md:p-2 p-5 group/sidebar
+          md:z-30 md:w-14 md:hover:w-64 md:translate-x-0 md:border-r-4 md:p-2 p-6 group/sidebar
           
           /* Mobile slide-in toggling states */
           w-64 border-r-4 ${mobileOpen ? "translate-x-0" : "-translate-x-full"}
@@ -115,7 +115,7 @@ export default function Sidebar({ user }) {
           </div>
 
           {/* 3. Navigation Links Grid Array */}
-          <nav className="flex flex-col gap-3 w-full">
+          <nav className="flex flex-col gap-4 w-full">
             <Link
               href="/chat"
               className="w-full"
@@ -123,7 +123,7 @@ export default function Sidebar({ user }) {
             >
               <Button
                 variant={isActive("/chat") ? "default" : "outline"}
-                className={`w-full font-black text-xs uppercase border-2 border-black h-11 p-0 md:group-hover/sidebar:px-3 max-md:px-3 ${
+                  className={`w-full font-black text-sm uppercase border-2 border-black h-12 p-0 md:group-hover/sidebar:px-3 max-md:px-3 ${
                   isActive("/chat") ? "bg-cyan-300" : "bg-white"
                 } justify-center md:group-hover/sidebar:justify-start max-md:justify-start`}
               >
@@ -141,7 +141,7 @@ export default function Sidebar({ user }) {
             >
               <Button
                 variant={isActive("/userdashboard") ? "default" : "outline"}
-                className={`w-full font-black text-xs uppercase border-2 border-black h-11 p-0 md:group-hover/sidebar:px-3 max-md:px-3 ${
+                  className={`w-full font-black text-sm uppercase border-2 border-black h-12 p-0 md:group-hover/sidebar:px-3 max-md:px-3 ${
                   isActive("/userdashboard") ? "bg-cyan-300" : "bg-white"
                 } justify-center md:group-hover/sidebar:justify-start max-md:justify-start`}
               >
@@ -159,7 +159,7 @@ export default function Sidebar({ user }) {
             >
               <Button
                 variant={isActive("/workspace") ? "default" : "outline"}
-                className={`w-full font-black text-xs uppercase border-2 border-black h-11 p-0 md:group-hover/sidebar:px-3 max-md:px-3 ${
+                  className={`w-full font-black text-sm uppercase border-2 border-black h-12 p-0 md:group-hover/sidebar:px-3 max-md:px-3 ${
                   isActive("/workspace") ? "bg-purple-300" : "bg-white"
                 } justify-center md:group-hover/sidebar:justify-start max-md:justify-start`}
               >
@@ -177,7 +177,7 @@ export default function Sidebar({ user }) {
             >
               <Button
                 variant={isActive("/settings") ? "default" : "outline"}
-                className={`w-full font-black text-xs uppercase border-2 border-black h-11 p-0 md:group-hover/sidebar:px-3 max-md:px-3 ${
+                  className={`w-full font-black text-sm uppercase border-2 border-black h-12 p-0 md:group-hover/sidebar:px-3 max-md:px-3 ${
                   isActive("/settings") ? "bg-emerald-300" : "bg-white"
                 } justify-center md:group-hover/sidebar:justify-start max-md:justify-start`}
               >

@@ -20,7 +20,7 @@ export default async function DashboardGroupLayout({ children }) {
 
       <main className="flex-1 w-full overflow-y-auto min-w-0 p-0 md:pl-16">
         {/* Inner page wrapping wrapper handles the text buffer safely */}
-        <div className="p-4 md:p-8 max-w-5xl mx-auto w-full min-w-0">
+        <div className="p-3 sm:p-5 md:p-8 max-w-6xl mx-auto w-full min-w-0">
           {children}
         </div>
       </main>

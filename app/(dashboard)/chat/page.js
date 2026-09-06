@@ -17,6 +17,7 @@ import {
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { PublisherBanner } from "@/components/ads/PublisherAds";
 
 
 export default function RetroChatRoom() {
@@ -156,7 +157,7 @@ export default function RetroChatRoom() {
   };
 
   return (
-    <div className="h-[calc(100dvh-6rem)] md:h-[calc(100dvh-4rem)] flex flex-col bg-white">
+    <div className="h-[calc(100dvh-4.5rem)] md:h-[calc(100dvh-4rem)] flex flex-col bg-white">
       
       <div className="border-b-4 border-black p-4 bg-purple-300 flex items-center justify-between gap-3 shrink-0">
         <div className="flex items-center gap-3 min-w-0">
@@ -169,7 +170,7 @@ export default function RetroChatRoom() {
             </Button>
           </Link>
           <div className="min-w-0">
-            <h3 className="font-black uppercase text-sm tracking-tight text-black truncate">
+            <h3 className="font-black uppercase text-base tracking-tight text-black truncate">
               PROTOCOL: {subject}
             </h3>
             <span className="font-mono text-[10px] font-bold text-slate-700 uppercase flex items-center gap-1">
@@ -185,7 +186,7 @@ export default function RetroChatRoom() {
         </Badge>
       </div>
 
-      <div className="flex-1 p-4 md:p-6 overflow-y-auto bg-[#F1EFE6] space-y-6 font-mono text-xs">
+      <div className="flex-1 p-4 sm:p-5 md:p-6 overflow-y-auto bg-[#F1EFE6] space-y-5 md:space-y-6 font-mono text-sm">
         {messages.length <= 1 && (
           <div className="text-center text-slate-400 mt-10 opacity-50">
             <Terminal className="w-12 h-12 mx-auto mb-2" />
@@ -198,7 +199,7 @@ export default function RetroChatRoom() {
           .map((m) => (
             <div
               key={m.id}
-              className={`flex gap-3 max-w-[90%] ${m.role === "user" ? "ml-auto justify-end" : ""}`}
+              className={`flex gap-3 max-w-[96%] sm:max-w-[90%] ${m.role === "user" ? "ml-auto justify-end" : ""}`}
             >
               <div
                 className={`border-2 border-black p-2 h-fit shrink-0 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] ${
@@ -219,7 +220,7 @@ export default function RetroChatRoom() {
                 }`}
               >
                 <div
-                  className={`leading-relaxed prose prose-sm max-w-none ${
+                  className={`leading-relaxed prose prose-base max-w-none ${
                     m.role === "user"
                       ? "prose-p:text-right"
                       : "prose-headings:font-bold prose-a:text-pink-600"
@@ -279,13 +280,15 @@ export default function RetroChatRoom() {
         <div ref={bottomRef} />
       </div>
 
+      <PublisherBanner className="shrink-0 border-x-0" />
+
       <form
         onSubmit={handleSend}
-        className="border-t-4 border-black p-4 bg-white flex flex-col gap-3 shrink-0"
+      className="border-t-4 border-black p-4 sm:p-5 bg-white flex flex-col gap-3 shrink-0"
       >
         <div className="flex gap-3 w-full min-w-0">
           <input
-            className="flex-1 min-w-0 p-3 border-2 border-black font-mono text-sm bg-[#F9F6EE] font-bold focus:outline-none focus:bg-white h-12 placeholder:text-slate-400"
+            className="flex-1 min-w-0 p-3 border-2 border-black font-mono text-base bg-[#F9F6EE] font-bold focus:outline-none focus:bg-white h-12 placeholder:text-slate-400"
             value={input}
             onChange={(e) => setInput(e.target.value)}
             placeholder="Type here..."

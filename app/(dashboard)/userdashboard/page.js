@@ -8,22 +8,25 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import ProgressGraph from '@/components/dashboard/ProgressGraph';
 import Graph from '@/components/dashboard/Graph'
+import { PublisherBanner, PublisherSmartlink } from '@/components/ads/PublisherAds';
 
 export default function userDashboard() {
   return (
-    <div className="space-y-8 animate-in fade-in duration-200">
+    <div className="space-y-6 sm:space-y-8 animate-in fade-in duration-200">
       {/* Welcome Banner Row */}
-      <div className="border-4 border-black bg-yellow-300 p-4 shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] flex justify-between items-center">
-        <h2 className="text-2xl font-black tracking-tighter uppercase">
+      <div className="border-4 border-black bg-yellow-300 p-5 shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] flex justify-between items-center">
+        <h2 className="text-2xl sm:text-3xl font-black tracking-tighter uppercase">
           Welcome Back
         </h2>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <PublisherBanner />
+
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-8">
         {/* Profile Card */}
         <Card
           variant="brutal"
-          className="bg-white border-4 border-black shadow-[6px_6px_0px_0px_#000] p-6 text-center flex flex-col items-center justify-center"
+          className="bg-white border-4 border-black shadow-[6px_6px_0px_0px_#000] p-7 text-center flex flex-col items-center justify-center min-h-56"
         >
           <div className="w-24 h-24 bg-purple-300 border-4 border-black shadow-[4px_4px_0px_0px_#000] flex items-center justify-center mb-4">
             <User className="w-12 h-12 text-black stroke-[2.5]" />
@@ -34,7 +37,7 @@ export default function userDashboard() {
         </Card>
 
         {/* Dynamic Navigation & Metric Grid Panels */}
-        <div className="md:col-span-2 grid grid-cols-1 sm:grid-cols-3 gap-6">
+        <div className="md:col-span-2 grid grid-cols-1 sm:grid-cols-3 gap-5 sm:gap-6">
           <Link
             href="/workspace"
             className="sm:col-span-2"
@@ -42,12 +45,12 @@ export default function userDashboard() {
           >
             <Card
               variant="brutal"
-              className="bg-cyan-300 border-4 border-black p-6 h-full min-h-40 shadow-[6px_6px_0px_0px_#000] flex flex-col justify-between hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none transition-all cursor-pointer group"
+              className="bg-cyan-300 border-4 border-black p-6 h-full min-h-44 shadow-[6px_6px_0px_0px_#000] flex flex-col justify-between hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none transition-all cursor-pointer group"
             >
               <div className="border-2 border-black bg-white p-2 w-fit shadow-[2px_2px_0px_0px_#000]">
                 <BookOpen className="w-6 h-6 text-black stroke-[2.5]" />
               </div>
-              <span className="flex items-center justify-between text-2xl font-black uppercase tracking-tight mt-4">
+              <span className="flex items-center justify-between text-2xl sm:text-3xl font-black uppercase tracking-tight mt-4">
                 Launch Workspace{" "}
                 <ArrowUpRight className="w-6 h-6 group-hover:rotate-45 transition-transform" />
               </span>
@@ -57,7 +60,7 @@ export default function userDashboard() {
           <Graph className={"w-full h-full "} />
 
           {/* Inspirational Text Box Component */}
-          <div className="sm:col-span-3 border-4 border-black bg-white p-5 flex items-start gap-4 shadow-[6px_6px_0px_0px_#000] font-mono text-xs">
+          <div className="sm:col-span-3 border-4 border-black bg-white p-5 flex items-start gap-4 shadow-[6px_6px_0px_0px_#000] font-mono text-sm">
             <Badge
               variant="black"
               className="text-white text-[10px] font-bold shrink-0"
@@ -76,6 +79,8 @@ export default function userDashboard() {
       <div className="md:col-span-3">
         <ProgressGraph />
       </div>
+
+      <PublisherSmartlink />
     </div>
   );
 }
