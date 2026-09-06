@@ -53,7 +53,7 @@ export default function Sidebar({ user }) {
           onClick={() => setMobileOpen(!mobileOpen)}
           aria-expanded={mobileOpen}
           aria-controls="apex-sidebar"
-          className="border-2 border-black h-10 w-10 p-0 flex items-center justify-center bg-white shadow-[1.5px_1.5px_0px_0px_rgba(0,0,0,1)] hover:bg-slate-100 active:translate-x-[1px] active:translate-y-[1px] active:shadow-none transition-all"
+          className="border-2 border-black h-10 w-10 p-0 flex items-center justify-center bg-white shadow-[1.5px_1.5px_0px_0px_rgba(0,0,0,1)] hover:bg-slate-100 active:translate-x-px active:translate-y-px active:shadow-none transition-all"
         >
           {mobileOpen ? (
             <X className="w-5 h-5 stroke-[2.5] text-black" />
