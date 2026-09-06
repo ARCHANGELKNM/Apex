@@ -12,6 +12,21 @@ const TASK_STORAGE_FILE = path.join(
   "task-storage",
   "tasks.json",
 );
+const COMPLETED_TASK_RETENTION_MS = 3 * 24 * 60 * 60 * 1000;
+
+function pruneCompletedTasks(tasks) {
+  const now = Date.now();
+  return tasks.filter((task) => {
+    if (!task.completed) return true;
+
+    const completedAt = task.completedAt
+      ? new Date(task.completedAt).getTime()
+      : null;
+    if (!completedAt) return true;
+
+    return now - completedAt <= COMPLETED_TASK_RETENTION_MS;
+  });
+}
 
 async function readLocalTasks() {
   try {
@@ -66,16 +81,30 @@ export async function PATCH(req, { params }) {
     );
   }
 
-  // update local-only storage
   try {
     const local = await readLocalTasks();
-    const idx = local.findIndex((t) => t.id === taskId && t.workspaceId === id);
-    if (idx === -1) {
+    const cleaned = pruneCompletedTasks(local);
+    const index = cleaned.findIndex(
+      (task) => task.id === taskId && task.workspaceId === id,
+    );
+
+    if (index === -1) {
+      if (cleaned.length !== local.length) {
+        await writeLocalTasks(cleaned);
+      }
       return NextResponse.json({ error: "Task not found" }, { status: 404 });
     }
-    local[idx].completed = !!body.completed;
-    await writeLocalTasks(local);
-    return NextResponse.json(local[idx]);
+
+    cleaned[index].completed = !!body.completed;
+    cleaned[index].completedAt = body.completed
+      ? new Date().toISOString()
+      : null;
+
+    const finalTasks = pruneCompletedTasks(cleaned);
+    await writeLocalTasks(finalTasks);
+    return NextResponse.json(
+      finalTasks.find((task) => task.id === taskId) || cleaned[index],
+    );
   } catch (err) {
     console.error("Failed to update local task file:", err);
     return NextResponse.json({ error: "Update failed" }, { status: 500 });
@@ -100,11 +129,13 @@ export async function DELETE(req, { params }) {
   try {
     const local = await readLocalTasks();
     const next = local.filter(
-      (t) => !(t.id === taskId && t.workspaceId === id),
+      (task) => !(task.id === taskId && task.workspaceId === id),
     );
+
     if (next.length === local.length) {
       return NextResponse.json({ error: "Task not found" }, { status: 404 });
     }
+
     await writeLocalTasks(next);
     return NextResponse.json({ ok: true });
   } catch (err) {

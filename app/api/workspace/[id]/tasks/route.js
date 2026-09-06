@@ -12,6 +12,21 @@ const TASK_STORAGE_FILE = path.join(
   "task-storage",
   "tasks.json",
 );
+const COMPLETED_TASK_RETENTION_MS = 3 * 24 * 60 * 60 * 1000;
+
+function pruneCompletedTasks(tasks) {
+  const now = Date.now();
+  return tasks.filter((task) => {
+    if (!task.completed) return true;
+
+    const completedAt = task.completedAt
+      ? new Date(task.completedAt).getTime()
+      : null;
+    if (!completedAt) return true;
+
+    return now - completedAt <= COMPLETED_TASK_RETENTION_MS;
+  });
+}
 
 async function readLocalTasks() {
   try {
@@ -58,11 +73,16 @@ export async function GET(req, { params }) {
     return NextResponse.json({ error: "Workspace not found" }, { status: 404 });
   }
 
-  // Read tasks from local file storage
   const local = await readLocalTasks();
-  const filtered = local.filter((t) => t.workspaceId === id);
-  // sort by dueDate
+  const cleaned = pruneCompletedTasks(local);
+
+  if (cleaned.length !== local.length) {
+    await writeLocalTasks(cleaned);
+  }
+
+  const filtered = cleaned.filter((task) => task.workspaceId === id);
   filtered.sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate));
+
   return NextResponse.json(filtered);
 }
 
@@ -83,21 +103,21 @@ export async function POST(req, { params }) {
 
   const body = await req.json();
   const title = body.title?.trim();
-  const dueDate = body.dueDate?.trim();
+  const dueDateValue = body.dueDate ? new Date(body.dueDate) : null;
 
-  if (!title || !dueDate) {
+  if (!title || !dueDateValue || Number.isNaN(dueDateValue.getTime())) {
     return NextResponse.json(
-      { error: "Title and due date are required" },
+      { error: "Title and valid due date are required" },
       { status: 400 },
     );
   }
-  // create local-only task entry (no DB)
-  const idStr = Date.now().toString() + "_" + Math.random().toString(36).slice(2, 9);
+
   const entry = {
-    id: idStr,
+    id: Date.now().toString() + "_" + Math.random().toString(36).slice(2, 9),
     title,
-    dueDate: new Date(dueDate).toISOString(),
+    dueDate: dueDateValue.toISOString(),
     completed: false,
+    completedAt: null,
     workspaceId: workspace.id,
     createdAt: new Date().toISOString(),
   };
@@ -106,10 +126,12 @@ export async function POST(req, { params }) {
     const local = await readLocalTasks();
     const next = [...local, entry].slice(-5000);
     await writeLocalTasks(next);
+    return NextResponse.json(entry);
   } catch (err) {
     console.error("Failed to write local task file:", err);
-    return NextResponse.json({ error: "Could not persist task" }, { status: 500 });
+    return NextResponse.json(
+      { error: "Could not persist task" },
+      { status: 500 },
+    );
   }
-
-  return NextResponse.json(entry);
 }
