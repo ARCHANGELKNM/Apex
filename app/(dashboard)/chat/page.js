@@ -17,6 +17,7 @@ import {
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import ChatAdsWidget from "@/components/ads/ChatAdsWidget";
 
 export default function RetroChatRoom() {
   const params = useParams();
@@ -156,6 +157,7 @@ export default function RetroChatRoom() {
 
   return (
     <div className="h-[calc(100dvh-6rem)] md:h-[calc(100dvh-4rem)] flex flex-col bg-white">
+      <ChatAdsWidget />
       <div className="border-b-4 border-black p-4 bg-purple-300 flex items-center justify-between gap-3 shrink-0">
         <div className="flex items-center gap-3 min-w-0">
           <Link href="/userdashboard">

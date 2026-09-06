@@ -1,7 +1,7 @@
 
 import Sidebar from '@/components/nav-bar/Sidebar';
 import AppTutorial from "@/components/tutorial/AppTutorial";
-import { getKindeServerSession } from "@kinde-oss/kind-auth-nextjs/server";
+import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { redirect } from "next/navigation";
 
 export default async function DashboardGroupLayout({ children }) {
