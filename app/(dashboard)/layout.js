@@ -13,14 +13,12 @@ export default async function DashboardGroupLayout({ children }) {
   }
 
   return (
-    <div className="flex flex-col md:flex-row w-full min-h-screen bg-[#F9F6EE] text-black antialiased p-0 m-0">
+    <div className="flex min-h-screen w-full bg-[#F9F6EE] text-black antialiased p-0 m-0">
       <AppTutorial />
-      {/* 1. Left Edge Full-Height Sidebar Component */}
       <Sidebar user={user} />
 
-      <main className="flex-1 w-full overflow-y-auto min-w-0 p-0 md:pl-16">
-        {/* Inner page wrapping wrapper handles the text buffer safely */}
-        <div className="p-3 sm:p-5 md:p-8 max-w-6xl mx-auto w-full min-w-0">
+      <main className="flex-1 w-full min-w-0 overflow-x-hidden md:pl-16">
+        <div className="mx-auto w-full min-w-0 max-w-6xl px-3 py-3 sm:px-4 sm:py-4 md:px-6 md:py-5">
           {children}
         </div>
       </main>

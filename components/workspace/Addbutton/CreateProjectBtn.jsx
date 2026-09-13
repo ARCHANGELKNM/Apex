@@ -137,13 +137,13 @@ export default function CreateProjectBtn() {
   // DEFAULT: BIG BUTTON
   return (
     <button
+      data-tour="create-project-button"
       onClick={() => setIsOpen(true)}
       className="group h-8 w-8 bg-transparent hover:bg-gray-100 transition-all cursor-pointer flex flex-col items-center justify-center gap-4"
     >
       <div className="bg-black text-white p-4 rounded-full group-hover:scale-110 transition-transform shadow-[4px_4px_0px_0px_rgba(0,0,0,0.3)]">
         <Plus className="w-4 h-4" />
       </div>
-
     </button>
   );
 }

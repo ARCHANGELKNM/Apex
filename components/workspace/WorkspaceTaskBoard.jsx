@@ -92,11 +92,30 @@ export default function WorkspaceTaskBoard({ workspaceId }) {
   }
 
   return (
-    <Card variant="brutal" className="border-4 border-black bg-white p-6 shadow-[4px_4px_0px_0px_#000]">
+    <Card
+      data-tour="workspace-task-board"
+      variant="brutal"
+      className="border-4 border-black bg-white p-6 shadow-[4px_4px_0px_0px_#000]"
+    >
+      <div className="mb-4 rounded-sm border-2 border-dashed border-black bg-amber-50 p-3">
+        <div className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-700">
+          Task workflow
+        </div>
+        <div className="mt-1 flex flex-wrap gap-4 text-xs font-bold text-slate-800">
+          <span>Create a task with a title and due date.</span>
+          <span>Tick a task to complete it.</span>
+          <span>Use the trash icon to delete a task.</span>
+        </div>
+      </div>
+
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between mb-4">
         <div>
-          <h2 className="text-lg font-black uppercase tracking-tight">Workspace tasks</h2>
-          <p className="text-sm text-slate-700">Add, complete, and remove tasks with a deadline.</p>
+          <h2 className="text-lg font-black uppercase tracking-tight">
+            Workspace tasks
+          </h2>
+          <p className="text-sm text-slate-700">
+            Add, complete, and remove tasks with a deadline.
+          </p>
         </div>
         <div className="flex flex-wrap items-center gap-2 text-xs uppercase tracking-wide font-black">
           <Badge variant="secondary">Total {tasks.length}</Badge>
@@ -106,14 +125,24 @@ export default function WorkspaceTaskBoard({ workspaceId }) {
       </div>
 
       <div className="rounded-full border-2 border-black bg-slate-100 h-4 overflow-hidden mb-4">
-        <div className="h-full bg-emerald-600 transition-all" style={{ width: `${progress}%` }} />
+        <div
+          className="h-full bg-emerald-600 transition-all"
+          style={{ width: `${progress}%` }}
+        />
       </div>
       <div className="flex items-center justify-between text-xs uppercase tracking-wide font-black mb-6">
         <span>{progress}% complete</span>
-        <span>{tasks.length ? `${tasks.length - completedCount} remaining` : "No tasks yet"}</span>
+        <span>
+          {tasks.length
+            ? `${tasks.length - completedCount} remaining`
+            : "No tasks yet"}
+        </span>
       </div>
 
-      <form onSubmit={createTask} className="grid gap-3 sm:grid-cols-[1fr_auto] mb-6">
+      <form
+        onSubmit={createTask}
+        className="grid gap-3 sm:grid-cols-[1fr_auto] mb-6"
+      >
         <div className="grid gap-3 sm:grid-cols-[1fr_160px]">
           <Input
             value={title}
@@ -128,17 +157,31 @@ export default function WorkspaceTaskBoard({ workspaceId }) {
             className="border-2 border-black"
           />
         </div>
-        <Button type="submit" disabled={saving} className="border-2 border-black bg-black text-white hover:bg-slate-900">
-          {saving ? "Saving..." : <span className="flex items-center gap-2"><Plus className="w-4 h-4" /> Add task</span>}
+        <Button
+          type="submit"
+          disabled={saving}
+          className="border-2 border-black bg-black text-white hover:bg-slate-900"
+        >
+          {saving ? (
+            "Saving..."
+          ) : (
+            <span className="flex items-center gap-2">
+              <Plus className="w-4 h-4" /> Add task
+            </span>
+          )}
         </Button>
       </form>
 
       {error && (
-        <div className="border border-red-400 bg-red-50 text-red-700 p-3 rounded-sm mb-4 text-sm">{error}</div>
+        <div className="border border-red-400 bg-red-50 text-red-700 p-3 rounded-sm mb-4 text-sm">
+          {error}
+        </div>
       )}
 
       {loading ? (
-        <div className="border-4 border-black p-6 bg-white text-center uppercase font-black text-sm">Loading tasks...</div>
+        <div className="border-4 border-black p-6 bg-white text-center uppercase font-black text-sm">
+          Loading tasks...
+        </div>
       ) : tasks.length === 0 ? (
         <div className="border-2 border-dashed border-slate-300 p-6 text-slate-700 text-sm uppercase font-black text-center">
           No tasks yet. Use the form above to add a new deadline.
@@ -149,28 +192,46 @@ export default function WorkspaceTaskBoard({ workspaceId }) {
             .slice()
             .sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate))
             .map((task) => {
-              const isOverdue = !task.completed && new Date(task.dueDate) < new Date();
+              const isOverdue =
+                !task.completed && new Date(task.dueDate) < new Date();
               return (
-                <div key={task.id} className="flex flex-col gap-3 rounded-sm border border-black p-4 sm:flex-row sm:items-center sm:justify-between">
+                <div
+                  key={task.id}
+                  className="flex flex-col gap-3 rounded-sm border border-black p-4 sm:flex-row sm:items-center sm:justify-between"
+                >
                   <div className="flex items-start gap-3 sm:items-center">
                     <button
                       type="button"
                       onClick={() => toggleTask(task)}
                       className="rounded-full border-2 border-black bg-white p-2"
                     >
-                      {task.completed ? <CheckCircle2 className="w-5 h-5 text-emerald-600" /> : <Circle className="w-5 h-5 text-slate-500" />}
+                      {task.completed ? (
+                        <CheckCircle2 className="w-5 h-5 text-emerald-600" />
+                      ) : (
+                        <Circle className="w-5 h-5 text-slate-500" />
+                      )}
                     </button>
                     <div>
-                      <p className={`font-black ${task.completed ? 'text-slate-500 line-through' : 'text-slate-900'}`}>
+                      <p
+                        className={`font-black ${task.completed ? "text-slate-500 line-through" : "text-slate-900"}`}
+                      >
                         {task.title}
                       </p>
                       <div className="text-xs text-slate-600 flex flex-wrap gap-2 items-center">
-                        <span className={isOverdue ? 'text-red-600' : 'text-slate-600'}>
+                        <span
+                          className={
+                            isOverdue ? "text-red-600" : "text-slate-600"
+                          }
+                        >
                           <CalendarDays className="inline w-3 h-3 mr-1" />
                           {new Date(task.dueDate).toLocaleDateString()}
                         </span>
-                        {task.completed && <Badge variant="outline">Completed</Badge>}
-                        {isOverdue && <Badge variant="destructive">Overdue</Badge>}
+                        {task.completed && (
+                          <Badge variant="outline">Completed</Badge>
+                        )}
+                        {isOverdue && (
+                          <Badge variant="destructive">Overdue</Badge>
+                        )}
                       </div>
                     </div>
                   </div>

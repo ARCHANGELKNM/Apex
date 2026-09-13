@@ -42,8 +42,6 @@ export default function Sidebar({ user }) {
 
   return (
     <>
-      {/* 📱 MOBILE NAVIGATION TRIGGER BAR (Hidden on Desktop) */}
-      {/* 📱 MOBILE NAVIGATION TRIGGER BAR (Hidden on Desktop) */}
       <div className="md:hidden w-full bg-white border-b-4 border-black px-4 py-3 flex flex-row items-center justify-between sticky top-0 left-0 right-0 z-50 h-18 box-border">
         <div className="border-2 border-black bg-yellow-300 px-3 py-1 font-black text-sm shadow-[1.5px_1.5px_0px_0px_rgba(0,0,0,1)] tracking-tighter uppercase text-black select-none">
           APEX
@@ -63,7 +61,6 @@ export default function Sidebar({ user }) {
         </Button>
       </div>
 
-      {/* 🖥️ MOBILE BACKDROP (Dark tint layer) */}
       {mobileOpen && (
         <div
           className="fixed inset-0 bg-black/40 z-40 md:hidden"
@@ -72,28 +69,19 @@ export default function Sidebar({ user }) {
         />
       )}
 
-      {/* 🖥️ RESPONSIVE FIXED SIDEBAR PANEL */}
       <aside
         id="apex-sidebar"
         className={`
-          /* Position Reset: Pinned globally on mobile and desktop views */
           fixed top-0 left-0 h-screen z-50 bg-white flex flex-col justify-between border-black transition-all duration-200 ease-in-out transform shrink-0
-          
-          /* Desktop Behavior: Fixed sizing, native width expansions via Hover states */
-          md:z-30 md:w-14 md:hover:w-64 md:translate-x-0 md:border-r-4 md:p-2 p-6 group/sidebar
-          
-          /* Mobile slide-in toggling states */
-          w-64 border-r-4 ${mobileOpen ? "translate-x-0" : "-translate-x-full"}
+          md:z-30 md:w-16 md:hover:w-64 md:translate-x-0 md:border-r-4 md:p-2 p-6 group/sidebar
+          w-72 border-r-4 ${mobileOpen ? "translate-x-0" : "-translate-x-full"}
         `}
       >
-        <div className="space-y-6 overflow-x-hidden w-full">
-          {/* 1. App Logo Module Block */}
-          <div className="w-full flex items-center">
-            {/* Desktop-only collapsed placeholder */}
+        <div className="space-y-4 overflow-x-hidden w-full">
+          <div className="w-full flex items-center justify-start">
             <div className="border-2 border-black bg-yellow-300 h-9 w-9 flex items-center justify-center font-black text-sm shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] select-none text-black shrink-0 group-hover/sidebar:md:hidden max-md:hidden">
               A
             </div>
-            {/* Desktop expanded state & global mobile header wrapper */}
             <div className="border-2 border-black bg-yellow-300 px-3 py-1.5 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] text-center w-full md:hidden group-hover/sidebar:md:block max-md:block animate-in fade-in duration-100">
               <h1 className="text-xl font-black tracking-tighter uppercase text-black">
                 APEX
@@ -101,8 +89,7 @@ export default function Sidebar({ user }) {
             </div>
           </div>
 
-          {/* 2. Gamified Daily Streak Module Block */}
-          <div className="border-2 border-black bg-[#F1EFE6] p-1.5 group-hover/sidebar:md:p-2.5 text-center transition-all w-full flex flex-col items-center justify-center">
+          <div className="border-2 border-black bg-[#F1EFE6] p-2 text-center transition-all w-full flex flex-col items-center justify-center">
             <div className="flex items-center justify-center gap-1 bg-orange-400 text-black border-2 border-black h-9 w-9 md:group-hover/sidebar:w-full md:group-hover/sidebar:h-auto py-1 px-1.5 font-mono text-xs font-black uppercase shadow-[1.5px_1.5px_0px_0px_rgba(0,0,0,1)] max-md:w-full max-md:h-auto shrink-0">
               <Flame className="w-4 h-4 fill-black shrink-0" />
               <span className="md:hidden group-hover/sidebar:md:inline max-md:inline ml-0.5">
@@ -114,8 +101,7 @@ export default function Sidebar({ user }) {
             </p>
           </div>
 
-          {/* 3. Navigation Links Grid Array */}
-          <nav className="flex flex-col gap-4 w-full">
+          <nav className="flex flex-col gap-3 w-full">
             <Link
               href="/chat"
               className="w-full"
@@ -123,7 +109,7 @@ export default function Sidebar({ user }) {
             >
               <Button
                 variant={isActive("/chat") ? "default" : "outline"}
-                  className={`w-full font-black text-sm uppercase border-2 border-black h-12 p-0 md:group-hover/sidebar:px-3 max-md:px-3 ${
+                className={`w-full font-black text-sm uppercase border-2 border-black h-12 p-0 md:group-hover/sidebar:px-3 max-md:px-3 ${
                   isActive("/chat") ? "bg-cyan-300" : "bg-white"
                 } justify-center md:group-hover/sidebar:justify-start max-md:justify-start`}
               >
@@ -141,7 +127,7 @@ export default function Sidebar({ user }) {
             >
               <Button
                 variant={isActive("/userdashboard") ? "default" : "outline"}
-                  className={`w-full font-black text-sm uppercase border-2 border-black h-12 p-0 md:group-hover/sidebar:px-3 max-md:px-3 ${
+                className={`w-full font-black text-sm uppercase border-2 border-black h-12 p-0 md:group-hover/sidebar:px-3 max-md:px-3 ${
                   isActive("/userdashboard") ? "bg-cyan-300" : "bg-white"
                 } justify-center md:group-hover/sidebar:justify-start max-md:justify-start`}
               >
@@ -159,7 +145,7 @@ export default function Sidebar({ user }) {
             >
               <Button
                 variant={isActive("/workspace") ? "default" : "outline"}
-                  className={`w-full font-black text-sm uppercase border-2 border-black h-12 p-0 md:group-hover/sidebar:px-3 max-md:px-3 ${
+                className={`w-full font-black text-sm uppercase border-2 border-black h-12 p-0 md:group-hover/sidebar:px-3 max-md:px-3 ${
                   isActive("/workspace") ? "bg-purple-300" : "bg-white"
                 } justify-center md:group-hover/sidebar:justify-start max-md:justify-start`}
               >
@@ -177,7 +163,7 @@ export default function Sidebar({ user }) {
             >
               <Button
                 variant={isActive("/settings") ? "default" : "outline"}
-                  className={`w-full font-black text-sm uppercase border-2 border-black h-12 p-0 md:group-hover/sidebar:px-3 max-md:px-3 ${
+                className={`w-full font-black text-sm uppercase border-2 border-black h-12 p-0 md:group-hover/sidebar:px-3 max-md:px-3 ${
                   isActive("/settings") ? "bg-emerald-300" : "bg-white"
                 } justify-center md:group-hover/sidebar:justify-start max-md:justify-start`}
               >

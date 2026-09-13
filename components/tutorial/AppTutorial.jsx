@@ -1,44 +1,65 @@
 'use client';
 
 import { useEffect, useMemo, useState } from 'react';
+import { usePathname, useRouter } from "next/navigation";
 
-const STORAGE_KEY = 'apex-first-tour-complete';
+const STORAGE_KEY = "apex-first-tour-complete";
 
 const steps = [
   {
     selector: 'a[href="/chat"]',
-    title: 'Start with Chat',
-    text: 'Open Chat to ask for help, plan tasks, or summarize work. This is the fastest way to get started and keep momentum.',
+    title: "Start with Chat",
+    text: "Ask the tutor what to do first. Try prompts like: “Plan this homework,” “Turn these notes into a study plan,” or “Find the past-paper topic I should revise.”",
+    route: "/chat",
   },
   {
     selector: 'a[href="/workspace"]',
-    title: 'Manage your work',
-    text: 'Use Workspace to create tasks, add due dates, and track what needs attention next. It keeps progress visible.',
+    title: "Create a workspace",
+    text: "Open Workspace and choose a study mode: Homework for assignments, Past Papers for practice sets, and Study for learning a subject deeply.",
+    route: "/workspace",
   },
   {
-    selector: '[data-tour="launch-workspace"]',
-    title: 'Launch Workspace',
-    text: 'Press this to open your project boards. It is the quickest path from dashboard to active work.',
+    selector: '[data-tour="create-project-button"]',
+    title: "Name your workspace",
+    text: "Click the plus button, choose a mode, then give the workspace a clear name such as “Calculus Q3 Homework” or “Biology Past Paper Revision.”",
+    route: "/workspace",
+  },
+  {
+    selector: '[data-tour="workspace-task-board"]',
+    title: "Plan with tasks",
+    text: "Inside one workspace, create tasks with a title and date, tick tasks when complete, and delete any task you no longer need.",
+    route: null,
   },
 ];
 
 export default function AppTutorial() {
   const [stepIndex, setStepIndex] = useState(-1);
   const [targetRect, setTargetRect] = useState(null);
+  const router = useRouter();
+  const pathname = usePathname();
 
   const activeStep = useMemo(() => steps[stepIndex] ?? null, [stepIndex]);
 
   useEffect(() => {
-    if (typeof window === 'undefined') return;
+    if (typeof window === "undefined") return;
 
     const seen = window.localStorage.getItem(STORAGE_KEY);
-    if (seen === 'true') return;
+    if (seen === "true") return;
 
     setStepIndex(0);
   }, []);
 
   useEffect(() => {
-    if (!activeStep || typeof window === 'undefined') return;
+    if (!activeStep || !activeStep.route || typeof window === "undefined")
+      return;
+
+    if (pathname !== activeStep.route) {
+      router.push(activeStep.route);
+    }
+  }, [activeStep, pathname, router]);
+
+  useEffect(() => {
+    if (!activeStep || typeof window === "undefined") return;
 
     const updateTarget = () => {
       const target = document.querySelector(activeStep.selector);
@@ -50,18 +71,18 @@ export default function AppTutorial() {
     };
 
     updateTarget();
-    window.addEventListener('resize', updateTarget);
-    window.addEventListener('scroll', updateTarget, { passive: true });
+    window.addEventListener("resize", updateTarget);
+    window.addEventListener("scroll", updateTarget, { passive: true });
 
     return () => {
-      window.removeEventListener('resize', updateTarget);
-      window.removeEventListener('scroll', updateTarget);
+      window.removeEventListener("resize", updateTarget);
+      window.removeEventListener("scroll", updateTarget);
     };
   }, [activeStep]);
 
   const finishTour = () => {
-    if (typeof window !== 'undefined') {
-      window.localStorage.setItem(STORAGE_KEY, 'true');
+    if (typeof window !== "undefined") {
+      window.localStorage.setItem(STORAGE_KEY, "true");
     }
     setStepIndex(-1);
     setTargetRect(null);
@@ -79,7 +100,7 @@ export default function AppTutorial() {
 
   const boxLeft = Math.min(
     window.innerWidth - 260,
-    Math.max(12, targetRect.right + 18)
+    Math.max(12, targetRect.right + 18),
   );
   const boxTop = Math.max(16, targetRect.top + 12);
 
@@ -92,7 +113,7 @@ export default function AppTutorial() {
           top: targetRect.top - 8,
           width: targetRect.width + 16,
           height: targetRect.height + 16,
-          boxShadow: '0 0 0 9999px rgba(0,0,0,0.28)',
+          boxShadow: "0 0 0 9999px rgba(0,0,0,0.28)",
         }}
       />
 
@@ -106,7 +127,9 @@ export default function AppTutorial() {
         <div className="mb-2 text-sm font-black uppercase tracking-tight text-black">
           {activeStep.title}
         </div>
-        <p className="text-[11px] leading-4 text-slate-700">{activeStep.text}</p>
+        <p className="text-[11px] leading-4 text-slate-700">
+          {activeStep.text}
+        </p>
 
         <div className="mt-3 flex items-center justify-between gap-2">
           <button
@@ -121,7 +144,7 @@ export default function AppTutorial() {
             onClick={nextStep}
             className="border-2 border-black bg-cyan-300 px-2 py-1 text-[10px] font-black uppercase"
           >
-            {stepIndex >= steps.length - 1 ? 'Done' : 'Next'}
+            {stepIndex >= steps.length - 1 ? "Done" : "Next"}
           </button>
         </div>
       </div>

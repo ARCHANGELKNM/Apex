@@ -2,7 +2,15 @@
 
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import { FileText, Layers, Circle, ChevronRight } from "lucide-react";
+import {
+  FileText,
+  Layers,
+  Circle,
+  ChevronRight,
+  BookOpen,
+  ClipboardCheck,
+  GraduationCap,
+} from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import CreateProjectBtn from "@/components/workspace/Addbutton/CreateProjectBtn";
@@ -59,6 +67,39 @@ export default function RetroWorkspace() {
 
   return (
     <div className="max-w-2xl mx-auto min-h-[80vh] relative pb-24 animate-in fade-in duration-200">
+      <div className="border-4 border-black bg-yellow-100 p-4 mb-4 shadow-[4px_4px_0px_0px_#000]">
+        <div className="flex items-center gap-2 mb-2">
+          <BookOpen className="w-5 h-5" />
+          <span className="font-black uppercase text-xs tracking-[0.12em]">
+            How to organize work
+          </span>
+        </div>
+        <div className="grid gap-2 text-xs font-bold text-slate-800">
+          <div className="flex items-center gap-2">
+            <BookOpen className="w-4 h-4" />
+            <span>
+              Homework workspaces hold assignments, questions, and next steps.
+            </span>
+          </div>
+          <div className="flex items-center gap-2">
+            <ClipboardCheck className="w-4 h-4" />
+            <span>
+              Past Papers workspaces collect exam practice and review sessions.
+            </span>
+          </div>
+          <div className="flex items-center gap-2">
+            <GraduationCap className="w-4 h-4" />
+            <span>
+              Study workspaces help you structure subject learning and revision.
+            </span>
+          </div>
+        </div>
+        <div className="mt-3 text-xs font-black uppercase text-slate-700">
+          Create a workspace from the plus button, then name it clearly and
+          choose the right mode.
+        </div>
+      </div>
+
       <div className="border-4 border-black bg-white p-1.5 shadow-[4px_4px_0px_0px_#000] flex gap-2 mb-8">
         {["past_papers", "homework", "study"].map((type) => (
           <Button

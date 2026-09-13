@@ -8,14 +8,16 @@ import Link from "next/link";
 import { useParams } from "next/navigation";
 import {
   ArrowLeft,
+  ArrowUp,
   Terminal,
   User,
   Cpu,
+  RotateCw,
 } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-
+import { PublisherBanner } from "@/components/ads/PublisherAds";
 
 export default function RetroChatRoom() {
   const params = useParams();
@@ -32,9 +34,28 @@ export default function RetroChatRoom() {
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [isLandscapeMobile, setIsLandscapeMobile] = useState(false);
 
   const bottomRef = useRef(null);
   const MAX_HISTORY_MESSAGES = 20;
+
+  useEffect(() => {
+    const updateOrientation = () => {
+      if (typeof window === "undefined") return;
+      const isMobileLandscape =
+        window.innerWidth < 960 && window.innerWidth > window.innerHeight;
+      setIsLandscapeMobile(isMobileLandscape);
+    };
+
+    updateOrientation();
+    window.addEventListener("resize", updateOrientation);
+    window.addEventListener("orientationchange", updateOrientation);
+
+    return () => {
+      window.removeEventListener("resize", updateOrientation);
+      window.removeEventListener("orientationchange", updateOrientation);
+    };
+  }, []);
 
   useEffect(() => {
     function loadHistory() {
@@ -154,149 +175,237 @@ export default function RetroChatRoom() {
   };
 
   return (
-    <div className="h-full flex flex-col bg-white">
-      
-      <div className="border-b-4 border-black p-4 bg-purple-300 flex items-center justify-between shrink-0">
-        <div className="flex items-center gap-3">
-          <Link href="/userdashboard">
-            <Button
-              variant="outline"
-              className="border-2 border-black p-1 bg-white shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] h-8 w-8 flex items-center justify-center"
-            >
-              <ArrowLeft className="w-4 h-4 stroke-[2.5]" />
-            </Button>
-          </Link>
-          <div>
-            <h3 className="font-black uppercase text-sm tracking-tight text-black">
-              PROTOCOL: {subject}
-            </h3>
-            <span className="font-mono text-[10px] font-bold text-slate-700 uppercase flex items-center gap-1">
-              <Cpu className="w-3 h-3" /> MANUAL_ENGINE_V8
-            </span>
+    <>
+      {isLandscapeMobile && (
+        <div className="fixed inset-0 z-70 flex items-center justify-center bg-[#F9F6EE]/95 md:hidden">
+          <div className="mx-6 border-4 border-black bg-white p-8 text-center shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] max-w-sm">
+            <RotateCw className="mx-auto mb-4 h-8 w-8 text-black" />
+            <p className="font-black uppercase tracking-tight text-black text-lg">
+              Rotate device
+            </p>
+            <p className="font-mono text-xs uppercase mt-2 text-slate-600">
+              portrait mode keeps the chat clean
+            </p>
           </div>
         </div>
-        <Badge
-          variant="black"
-          className={`text-white text-[10px] font-mono font-bold ${isLoading ? "bg-red-500 animate-pulse" : "bg-black"}`}
-        >
-          {isLoading ? "COMPUTING..." : "LIVE_FEED"}
-        </Badge>
-      </div>
+      )}
 
-      <div className="flex-1 p-4 md:p-6 overflow-y-auto bg-[#F1EFE6] space-y-6 font-mono text-xs">
-        {messages.length <= 1 && (
-          <div className="text-center text-slate-400 mt-10 opacity-50">
-            <Terminal className="w-12 h-12 mx-auto mb-2" />
-            <p>SYSTEM READY.</p>
-          </div>
-        )}
-
-        {messages
-          .filter((m) => m.role !== "system")
-          .map((m) => (
-            <div
-              key={m.id}
-              className={`flex gap-3 max-w-[90%] ${m.role === "user" ? "ml-auto justify-end" : ""}`}
-            >
-              <div
-                className={`border-2 border-black p-2 h-fit shrink-0 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] ${
-                  m.role === "user" ? "bg-cyan-300 order-2" : "bg-yellow-300"
-                }`}
+      <div className="flex min-h-[calc(100dvh-4rem)] flex-col bg-white">
+        <div className="border-b-4 border-black px-4 py-3 bg-purple-300 flex items-center justify-between shrink-0">
+          <div className="flex items-center gap-3">
+            <Link href="/userdashboard">
+              <Button
+                variant="outline"
+                className="border-2 border-black p-1 bg-white shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] h-8 w-8 flex items-center justify-center"
               >
-                {m.role === "user" ? (
-                  <User className="w-4 h-4" />
-                ) : (
-                  <Terminal className="w-4 h-4" />
-                )}
-              </div>
+                <ArrowLeft className="w-4 h-4 stroke-[2.5]" />
+              </Button>
+            </Link>
+            <div>
+              <h3 className="font-black uppercase text-sm tracking-tight text-black">
+                PROTOCOL: {subject}
+              </h3>
+              <span className="font-mono text-[10px] font-bold text-slate-700 uppercase flex items-center gap-1">
+                <Cpu className="w-3 h-3" /> MANUAL_ENGINE_V8
+              </span>
+            </div>
+          </div>
+          <Badge
+            variant="black"
+            className={`text-white text-[10px] font-mono font-bold ${isLoading ? "bg-red-500 animate-pulse" : "bg-black"}`}
+          >
+            {isLoading ? "COMPUTING..." : "LIVE_FEED"}
+          </Badge>
+        </div>
 
-              <Card
-                variant="brutal"
-                className={`border-2 border-black p-4 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] font-sans text-sm text-black rounded-none flex-1 ${
-                  m.role === "user" ? "bg-cyan-100 text-right" : "bg-white"
-                }`}
+        <div className="flex-1 px-3 py-3 sm:px-4 sm:py-4 overflow-y-auto bg-[#F1EFE6] space-y-3 font-mono text-xs">
+          <div className="rounded-none border-4 border-black bg-white p-3 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] mb-3">
+            <div className="font-black uppercase text-[11px] tracking-[0.12em] text-slate-700">
+              Next steps
+            </div>
+            <div className="mt-2 grid gap-1 text-[11px] font-bold text-slate-800">
+              <div>Plan this topic</div>
+              <div>Build a revision path</div>
+              <div>Turn notes into tasks</div>
+            </div>
+          </div>
+
+          {messages.length <= 1 && (
+            <div className="text-center text-slate-400 mt-10 opacity-50">
+              <Terminal className="w-12 h-12 mx-auto mb-2" />
+              <p>SYSTEM READY.</p>
+            </div>
+          )}
+
+          {messages
+            .filter((m) => m.role !== "system")
+            .map((m) => (
+              <div
+                key={m.id}
+                className={`flex gap-3 max-w-[90%] ${m.role === "user" ? "ml-auto justify-end" : ""}`}
               >
                 <div
-                  className={`leading-relaxed prose prose-sm max-w-none ${
-                    m.role === "user"
-                      ? "prose-p:text-right"
-                      : "prose-headings:font-bold prose-a:text-pink-600"
+                  className={`border-2 border-black p-2 h-fit shrink-0 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] ${
+                    m.role === "user" ? "bg-cyan-300 order-2" : "bg-yellow-300"
                   }`}
                 >
                   {m.role === "user" ? (
-                    <p>{m.content}</p>
+                    <User className="w-4 h-4" />
                   ) : (
-                    <ReactMarkdown
-                      remarkPlugins={[remarkGfm]}
-                      components={{
-                        strong: ({ node, ...props }) => (
-                          <span
-                            className="font-black bg-yellow-200 px-1 border border-black"
-                            {...props}
-                          />
-                        ),
-                        ul: ({ node, ...props }) => (
-                          <ul
-                            className="list-disc pl-4 space-y-1 my-2"
-                            {...props}
-                          />
-                        ),
-                        ol: ({ node, ...props }) => (
-                          <ol
-                            className="list-decimal pl-4 space-y-1 my-2"
-                            {...props}
-                          />
-                        ),
-                        code: ({ node, inline, ...props }) =>
-                          inline ? (
-                            <code
-                              className="bg-gray-200 px-1 font-mono text-xs border border-gray-400 rounded-sm"
-                              {...props}
-                            />
-                          ) : (
-                            <div className="bg-black text-green-400 p-3 rounded-none my-2 overflow-x-auto border-2 border-gray-500 font-mono text-xs">
-                              <code {...props} />
-                            </div>
-                          ),
-                      }}
-                    >
-                      {m.content}
-                    </ReactMarkdown>
+                    <Terminal className="w-4 h-4" />
                   )}
                 </div>
-              </Card>
-            </div>
-          ))}
 
-        <div ref={bottomRef} />
+                <div className="hidden md:block flex-1">
+                  <Card
+                    variant="brutal"
+                    className={`border-2 border-black p-4 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] font-sans text-sm text-black rounded-none flex-1 ${
+                      m.role === "user" ? "bg-cyan-100 text-right" : "bg-white"
+                    }`}
+                  >
+                    <div
+                      className={`leading-relaxed prose prose-sm max-w-none ${
+                        m.role === "user"
+                          ? "prose-p:text-right"
+                          : "prose-headings:font-bold prose-a:text-pink-600"
+                      }`}
+                    >
+                      {m.role === "user" ? (
+                        <p>{m.content}</p>
+                      ) : (
+                        <ReactMarkdown
+                          remarkPlugins={[remarkGfm]}
+                          components={{
+                            strong: ({ node, ...props }) => (
+                              <span
+                                className="font-black bg-yellow-200 px-1 border border-black"
+                                {...props}
+                              />
+                            ),
+                            ul: ({ node, ...props }) => (
+                              <ul
+                                className="list-disc pl-4 space-y-1 my-2"
+                                {...props}
+                              />
+                            ),
+                            ol: ({ node, ...props }) => (
+                              <ol
+                                className="list-decimal pl-4 space-y-1 my-2"
+                                {...props}
+                              />
+                            ),
+                            code: ({ node, inline, ...props }) =>
+                              inline ? (
+                                <code
+                                  className="bg-gray-200 px-1 font-mono text-xs border border-gray-400 rounded-sm"
+                                  {...props}
+                                />
+                              ) : (
+                                <div className="bg-black text-green-400 p-3 rounded-none my-2 overflow-x-auto border-2 border-gray-500 font-mono text-xs">
+                                  <code {...props} />
+                                </div>
+                              ),
+                          }}
+                        >
+                          {m.content}
+                        </ReactMarkdown>
+                      )}
+                    </div>
+                  </Card>
+                </div>
+
+                <div className="block md:hidden flex-1">
+                  <div
+                    className={`border-l-4 border-black p-3 font-sans text-sm text-black rounded-none ${
+                      m.role === "user" ? "bg-cyan-100 text-right" : "bg-white"
+                    }`}
+                  >
+                    <div
+                      className={`leading-relaxed prose prose-sm max-w-none ${
+                        m.role === "user"
+                          ? "prose-p:text-right"
+                          : "prose-headings:font-bold prose-a:text-pink-600"
+                      }`}
+                    >
+                      {m.role === "user" ? (
+                        <p>{m.content}</p>
+                      ) : (
+                        <ReactMarkdown
+                          remarkPlugins={[remarkGfm]}
+                          components={{
+                            strong: ({ node, ...props }) => (
+                              <span
+                                className="font-black bg-yellow-200 px-1 border border-black"
+                                {...props}
+                              />
+                            ),
+                            ul: ({ node, ...props }) => (
+                              <ul
+                                className="list-disc pl-4 space-y-1 my-2"
+                                {...props}
+                              />
+                            ),
+                            ol: ({ node, ...props }) => (
+                              <ol
+                                className="list-decimal pl-4 space-y-1 my-2"
+                                {...props}
+                              />
+                            ),
+                            code: ({ node, inline, ...props }) =>
+                              inline ? (
+                                <code
+                                  className="bg-gray-200 px-1 font-mono text-xs border border-gray-400 rounded-sm"
+                                  {...props}
+                                />
+                              ) : (
+                                <div className="bg-black text-green-400 p-3 rounded-none my-2 overflow-x-auto border-2 border-gray-500 font-mono text-xs">
+                                  <code {...props} />
+                                </div>
+                              ),
+                          }}
+                        >
+                          {m.content}
+                        </ReactMarkdown>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+
+          <div ref={bottomRef} />
+        </div>
+
+        <PublisherBanner className="shrink-0 border-x-0" />
+
+        <form
+          onSubmit={handleSend}
+          className="border-t-4 border-black px-3 py-3 bg-white flex flex-col gap-2 shrink-0"
+        >
+          <div className="flex items-center justify-between gap-2">
+            <span className="text-[11px] font-black uppercase tracking-tight text-slate-700">
+              Apex assistant
+            </span>
+            {error && <span className="text-[11px] text-red-600">{error}</span>}
+          </div>
+          <div className="flex gap-2">
+            <input
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              placeholder="Ask your workspace tutor..."
+              className="flex-1 min-w-0 px-3 py-2 border-2 border-black font-mono text-sm bg-[#F9F6EE] font-bold focus:outline-none focus:bg-white h-11 placeholder:text-slate-400"
+            />
+            <button
+              type="submit"
+              aria-label="Send message"
+              disabled={isLoading || !input.trim()}
+              className="border-2 border-black bg-pink-500 hover:bg-pink-400 text-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] h-11 w-11 flex items-center justify-center shrink-0 disabled:opacity-50 disabled:bg-gray-300 transition-all active:translate-y-1 active:shadow-none"
+            >
+              <ArrowUp className="w-5 h-5 stroke-3" />
+            </button>
+          </div>
+        </form>
       </div>
-
-      <form
-        onSubmit={handleSend}
-        className="border-t-4 border-black p-4 bg-white flex flex-col gap-3"
-      >
-        <div className="flex items-center justify-between gap-3">
-          <span className="text-xs font-black uppercase tracking-tight text-slate-700">
-            Apex assistant
-          </span>
-          {error && <span className="text-xs text-red-600">{error}</span>}
-        </div>
-        <div className="flex gap-3">
-          <input
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            placeholder="Ask your workspace tutor..."
-            className="flex-1 border-2 border-black p-3 outline-none text-sm"
-          />
-          <Button
-            type="submit"
-            disabled={isLoading}
-            className="border-2 border-black bg-black text-white hover:bg-slate-900"
-          >
-            Send
-          </Button>
-        </div>
-      </form>
-    </div>
+    </>
   );
 }
