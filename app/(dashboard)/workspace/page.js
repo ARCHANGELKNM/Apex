@@ -66,8 +66,8 @@ export default function RetroWorkspace() {
   });
 
   return (
-    <div className="max-w-2xl mx-auto min-h-[80vh] relative pb-24 animate-in fade-in duration-200">
-      <div className="border-4 border-black bg-yellow-100 p-4 mb-4 shadow-[4px_4px_0px_0px_#000]">
+    <div className="w-full min-h-[80vh] relative pb-16 animate-in fade-in duration-200">
+      <div className="border-4 border-black bg-yellow-100 p-2 mb-2 shadow-[4px_4px_0px_0px_#000] sm:p-3 sm:mb-3">
         <div className="flex items-center gap-2 mb-2">
           <BookOpen className="w-5 h-5" />
           <span className="font-black uppercase text-xs tracking-[0.12em]">
@@ -100,7 +100,7 @@ export default function RetroWorkspace() {
         </div>
       </div>
 
-      <div className="border-4 border-black bg-white p-1.5 shadow-[4px_4px_0px_0px_#000] flex gap-2 mb-8">
+      <div className="border-4 border-black bg-white p-1.5 shadow-[4px_4px_0px_0px_#000] flex gap-2 mb-4">
         {["past_papers", "homework", "study"].map((type) => (
           <Button
             key={type}
@@ -113,7 +113,7 @@ export default function RetroWorkspace() {
         ))}
       </div>
 
-      <div className="space-y-4">
+      <div className="space-y-3">
         {loading && (
           <div className="border-4 border-black p-6 bg-white shadow-[4px_4px_0px_0px_#000] text-center uppercase font-black text-sm">
             Loading workspaces...
@@ -146,7 +146,7 @@ export default function RetroWorkspace() {
               >
                 <Card
                   variant="brutal"
-                  className="bg-white border-4 border-black p-5 shadow-[4px_4px_0px_0px_#000] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none transition-all cursor-pointer"
+                  className="bg-white border-4 border-black p-4 shadow-[4px_4px_0px_0px_#000] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none transition-all cursor-pointer"
                 >
                   <div className="flex items-start gap-4">
                     <div

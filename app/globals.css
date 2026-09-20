@@ -3,9 +3,20 @@
 @custom-variant dark (&:is(.dark *));
 
 @layer base {
-  body {
+  * {
+    box-sizing: border-box;
+  }
+
+  html, body {
+    margin: 0;
+    padding: 0;
     background-color: #F9F6EE;
     color: #000000;
+  }
+
+  body {
+    min-height: 100vh;
+    overflow-x: hidden;
   }
 }
 

@@ -3,51 +3,11 @@ import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { db } from "@/src/db";
 import { workspaces } from "@/src/db/schema";
 import { eq } from "drizzle-orm";
-import fs from "fs";
-import path from "path";
-
-const TASK_STORAGE_FILE = path.join(
-  process.cwd(),
-  "apex",
-  "task-storage",
-  "tasks.json",
-);
-const COMPLETED_TASK_RETENTION_MS = 3 * 24 * 60 * 60 * 1000;
-
-function pruneCompletedTasks(tasks) {
-  const now = Date.now();
-  return tasks.filter((task) => {
-    if (!task.completed) return true;
-
-    const completedAt = task.completedAt
-      ? new Date(task.completedAt).getTime()
-      : null;
-    if (!completedAt) return true;
-
-    return now - completedAt <= COMPLETED_TASK_RETENTION_MS;
-  });
-}
-
-async function readLocalTasks() {
-  try {
-    await fs.promises.mkdir(path.dirname(TASK_STORAGE_FILE), {
-      recursive: true,
-    });
-    const raw = await fs.promises.readFile(TASK_STORAGE_FILE, "utf8");
-    return JSON.parse(raw || "[]");
-  } catch (err) {
-    return [];
-  }
-}
-
-async function writeLocalTasks(tasksArray) {
-  await fs.promises.mkdir(path.dirname(TASK_STORAGE_FILE), { recursive: true });
-  await fs.promises.writeFile(
-    TASK_STORAGE_FILE,
-    JSON.stringify(tasksArray, null, 2),
-    "utf8",
-  );
-}
+import {
+  pruneCompletedTasks,
+  readLocalTasks,
+  writeLocalTasks,
+} from "@/lib/task-storage";
 
 async function getWorkspace(workspaceId, userId) {
   const [workspace] = await db

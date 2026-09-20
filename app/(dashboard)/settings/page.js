@@ -11,9 +11,9 @@ export default function RetroSettings() {
   const [fontSize, setFontSize] = useState("large");
 
   return (
-    <div className="max-w-2xl mx-auto space-y-8 animate-in fade-in duration-200">
+    <div className="w-full space-y-3 animate-in fade-in duration-200 sm:space-y-5">
       {/* Settings Diagnostic System Banner */}
-      <div className="border-4 border-black bg-emerald-300 p-4 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3">
+      <div className="border-4 border-black bg-emerald-300 p-2 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 sm:p-3">
         <h2 className="text-lg sm:text-xl font-black uppercase tracking-tight min-w-0">
           System Configuration // Calibrate User
         </h2>

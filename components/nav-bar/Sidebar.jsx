@@ -18,9 +18,29 @@ import { LogoutLink } from "@kinde-oss/kinde-auth-nextjs/components";
 export default function Sidebar({ user }) {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [showHeader, setShowHeader] = useState(true);
   const closeButtonRef = useRef(null);
 
   const isActive = (path) => pathname === path;
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    let lastScrollY = window.scrollY;
+
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      const scrollingUp = currentScrollY < lastScrollY;
+
+      setShowHeader(scrollingUp || currentScrollY < 24);
+      lastScrollY = currentScrollY;
+    };
+
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   useEffect(() => {
     function handleKey(e) {
@@ -42,7 +62,7 @@ export default function Sidebar({ user }) {
 
   return (
     <>
-      <div className="md:hidden w-full bg-white border-b-4 border-black px-4 py-3 flex flex-row items-center justify-between sticky top-0 left-0 right-0 z-50 h-18 box-border">
+      <div className="md:hidden w-full bg-white border-b-4 border-black px-4 py-3 flex flex-row items-center justify-between z-50 h-18 box-border">
         <div className="border-2 border-black bg-yellow-300 px-3 py-1 font-black text-sm shadow-[1.5px_1.5px_0px_0px_rgba(0,0,0,1)] tracking-tighter uppercase text-black select-none">
           APEX
         </div>
@@ -72,13 +92,19 @@ export default function Sidebar({ user }) {
       <aside
         id="apex-sidebar"
         className={`
-          fixed top-0 left-0 h-screen z-50 bg-white flex flex-col justify-between border-black transition-all duration-200 ease-in-out transform shrink-0
-          md:z-30 md:w-16 md:hover:w-64 md:translate-x-0 md:border-r-4 md:p-2 p-6 group/sidebar
-          w-72 border-r-4 ${mobileOpen ? "translate-x-0" : "-translate-x-full"}
+          fixed top-0 left-0 z-50 h-screen w-72 max-w-[85vw] bg-white flex flex-col justify-between border-r-4 border-black transition-transform duration-200 ease-in-out
+          md:static md:z-30 md:w-16 md:max-w-none md:hover:w-64 md:translate-x-0 md:border-r-4 md:p-2 md:flex
+          p-6 group/sidebar ${mobileOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"}
         `}
       >
         <div className="space-y-4 overflow-x-hidden w-full">
-          <div className="w-full flex items-center justify-start">
+          <div
+            className={`w-full flex items-center justify-start overflow-hidden transition-all duration-200 ease-out ${
+              showHeader
+                ? "max-h-14 opacity-100 translate-y-0"
+                : "max-h-0 opacity-0 -translate-y-2 md:max-h-0"
+            }`}
+          >
             <div className="border-2 border-black bg-yellow-300 h-9 w-9 flex items-center justify-center font-black text-sm shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] select-none text-black shrink-0 group-hover/sidebar:md:hidden max-md:hidden">
               A
             </div>

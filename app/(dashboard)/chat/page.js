@@ -175,6 +175,134 @@ export default function RetroChatRoom() {
     }
   };
 
+  const markdownComponents = {
+    p: ({ node, ...props }) => (
+      <p
+        className="my-2 leading-relaxed text-[0.95em] text-slate-800"
+        {...props}
+      />
+    ),
+    h1: ({ node, ...props }) => (
+      <h1
+        className="mt-4 mb-2 text-lg font-black uppercase tracking-tight text-black"
+        {...props}
+      />
+    ),
+    h2: ({ node, ...props }) => (
+      <h2
+        className="mt-4 mb-2 text-base font-black uppercase tracking-tight text-black"
+        {...props}
+      />
+    ),
+    h3: ({ node, ...props }) => (
+      <h3
+        className="mt-3 mb-1.5 text-sm font-black uppercase tracking-tight text-black"
+        {...props}
+      />
+    ),
+    h4: ({ node, ...props }) => (
+      <h4
+        className="mt-3 mb-1 text-sm font-black uppercase tracking-tight text-slate-800"
+        {...props}
+      />
+    ),
+    strong: ({ node, ...props }) => (
+      <strong
+        className="font-black bg-yellow-200 px-1 border border-black text-black"
+        {...props}
+      />
+    ),
+    em: ({ node, ...props }) => (
+      <em
+        className="italic bg-pink-100 px-1 border border-black text-black"
+        {...props}
+      />
+    ),
+    a: ({ node, ...props }) => (
+      <a
+        className="font-bold underline underline-offset-2 text-pink-700 decoration-2"
+        target="_blank"
+        rel="noreferrer"
+        {...props}
+      />
+    ),
+    ul: ({ node, ...props }) => (
+      <ul
+        className="list-disc pl-5 my-3 space-y-1.5 text-slate-800"
+        {...props}
+      />
+    ),
+    ol: ({ node, ...props }) => (
+      <ol
+        className="list-decimal pl-5 my-3 space-y-1.5 text-slate-800"
+        {...props}
+      />
+    ),
+    li: ({ node, ...props }) => <li className="leading-relaxed" {...props} />,
+    blockquote: ({ node, ...props }) => (
+      <blockquote
+        className="my-3 border-l-4 border-black bg-[#f9f3d8] pl-3 py-2 italic text-slate-700"
+        {...props}
+      />
+    ),
+    hr: ({ node, ...props }) => (
+      <hr className="my-4 border-t-2 border-black" {...props} />
+    ),
+    table: ({ node, ...props }) => (
+      <div className="my-3 overflow-x-auto border-2 border-black bg-white">
+        <table
+          className="min-w-full border-collapse text-left text-[0.82rem]"
+          {...props}
+        />
+      </div>
+    ),
+    thead: ({ node, ...props }) => (
+      <thead className="bg-[#f2efe7]" {...props} />
+    ),
+    th: ({ node, ...props }) => (
+      <th
+        className="border border-black px-2 py-1.5 align-top text-[10px] font-black uppercase tracking-[0.12em] text-slate-700"
+        {...props}
+      />
+    ),
+    td: ({ node, ...props }) => (
+      <td
+        className="border border-black px-2 py-1.5 align-top text-slate-800"
+        {...props}
+      />
+    ),
+    tr: ({ node, ...props }) => <tr className="align-top" {...props} />,
+    code: ({ node, inline, className, children, ...props }) => {
+      if (inline) {
+        return (
+          <code
+            className="rounded-none border border-black bg-gray-200 px-1 py-0.5 font-mono text-[0.8em] text-black"
+            {...props}
+          >
+            {children}
+          </code>
+        );
+      }
+
+      return (
+        <div className="my-3 overflow-x-auto border-2 border-black bg-black p-3">
+          <code
+            className="block font-mono text-[0.74rem] leading-relaxed text-green-400"
+            {...props}
+          >
+            {children}
+          </code>
+        </div>
+      );
+    },
+    pre: ({ node, ...props }) => (
+      <pre
+        className="my-3 overflow-x-auto border-2 border-black bg-black p-3"
+        {...props}
+      />
+    ),
+  };
+
   return (
     <>
       {isLandscapeMobile && (
@@ -191,8 +319,8 @@ export default function RetroChatRoom() {
         </div>
       )}
 
-      <div className="flex min-h-[calc(100dvh-4rem)] flex-col bg-white">
-        <div className="border-b-4 border-black px-4 py-3 bg-purple-300 flex items-center justify-between gap-3 shrink-0">
+      <div className="flex min-h-[calc(100dvh-4rem)] flex-col bg-[#F9F6EE]">
+        <div className="border-b-4 border-black px-3 py-2.5 bg-purple-300 flex items-center justify-between gap-3 shrink-0 sm:px-4 sm:py-3">
           <div className="flex items-center gap-3 min-w-0">
             <Link href="/userdashboard">
               <Button
@@ -203,26 +331,28 @@ export default function RetroChatRoom() {
               </Button>
             </Link>
             <div className="min-w-0">
-              <h3 className="font-black uppercase text-base tracking-tight text-black truncate">
+              <h3 className="font-black uppercase text-sm tracking-tight text-black truncate sm:text-base">
                 PROTOCOL: {subject}
               </h3>
-              <span className="font-mono text-[10px] font-bold text-slate-700 uppercase flex items-center gap-1">
+              <span className="font-mono text-[9px] font-bold text-slate-700 uppercase flex items-center gap-1 sm:text-[10px]">
                 <Cpu className="w-3 h-3 shrink-0" /> MANUAL_ENGINE_V8
               </span>
             </div>
           </div>
           <Badge
             variant="black"
-            className={`text-white text-[10px] font-mono font-bold shrink-0 ${isLoading ? "bg-red-500 animate-pulse" : "bg-black"}`}
+            className={`text-white text-[9px] font-mono font-bold shrink-0 sm:text-[10px] ${isLoading ? "bg-red-500 animate-pulse" : "bg-black"}`}
           >
             {isLoading ? "COMPUTING..." : "LIVE_FEED"}
           </Badge>
         </div>
 
-        <div className="flex-1 px-3 py-3 sm:px-4 sm:py-4 overflow-y-auto bg-[#F1EFE6] space-y-3 font-mono text-sm">
-          <div className="rounded-none border-4 border-black bg-white p-3 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] mb-3">
-            <div className="font-black uppercase text-[11px] tracking-[0.12em] text-slate-700">Next steps</div>
-            <div className="mt-2 grid gap-1 text-[11px] font-bold text-slate-800">
+        <div className="flex-1 px-0 py-0 sm:px-4 sm:py-4 overflow-y-auto bg-[#F1EFE6] space-y-2 font-mono text-[13px] sm:text-sm">
+          <div className="rounded-none border-4 border-black bg-white p-2 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] mb-1 sm:p-3 sm:mb-3">
+            <div className="font-black uppercase text-[10px] tracking-[0.12em] text-slate-700 sm:text-[11px]">
+              Next steps
+            </div>
+            <div className="mt-1.5 grid gap-1 text-[10px] font-bold text-slate-800 sm:text-[11px]">
               <div>Plan this topic</div>
               <div>Build a revision path</div>
               <div>Turn notes into tasks</div>
@@ -241,7 +371,7 @@ export default function RetroChatRoom() {
             .map((m) => (
               <div
                 key={m.id}
-                className={`flex gap-3 max-w-[96%] sm:max-w-[90%] ${m.role === "user" ? "ml-auto justify-end" : ""}`}
+                className={`flex items-start gap-1.5 max-w-[98%] sm:max-w-[88%] ${m.role === "user" ? "ml-auto justify-end" : ""}`}
               >
                 <div
                   className={`border-2 border-black p-2 h-fit shrink-0 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] ${
@@ -274,37 +404,7 @@ export default function RetroChatRoom() {
                       ) : (
                         <ReactMarkdown
                           remarkPlugins={[remarkGfm]}
-                          components={{
-                            strong: ({ node, ...props }) => (
-                              <span
-                                className="font-black bg-yellow-200 px-1 border border-black"
-                                {...props}
-                              />
-                            ),
-                            ul: ({ node, ...props }) => (
-                              <ul
-                                className="list-disc pl-4 space-y-1 my-2"
-                                {...props}
-                              />
-                            ),
-                            ol: ({ node, ...props }) => (
-                              <ol
-                                className="list-decimal pl-4 space-y-1 my-2"
-                                {...props}
-                              />
-                            ),
-                            code: ({ node, inline, ...props }) =>
-                              inline ? (
-                                <code
-                                  className="bg-gray-200 px-1 font-mono text-xs border border-gray-400 rounded-sm"
-                                  {...props}
-                                />
-                              ) : (
-                                <div className="bg-black text-green-400 p-3 rounded-none my-2 overflow-x-auto border-2 border-gray-500 font-mono text-xs">
-                                  <code {...props} />
-                                </div>
-                              ),
-                          }}
+                          components={markdownComponents}
                         >
                           {m.content}
                         </ReactMarkdown>
@@ -315,7 +415,7 @@ export default function RetroChatRoom() {
 
                 <div className="block md:hidden flex-1">
                   <div
-                    className={`border-l-4 border-black p-3 font-sans text-sm text-black rounded-none ${
+                    className={`border-2 border-black p-3 font-sans text-sm text-black rounded-none shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] ${
                       m.role === "user" ? "bg-cyan-100 text-right" : "bg-white"
                     }`}
                   >
@@ -331,37 +431,7 @@ export default function RetroChatRoom() {
                       ) : (
                         <ReactMarkdown
                           remarkPlugins={[remarkGfm]}
-                          components={{
-                            strong: ({ node, ...props }) => (
-                              <span
-                                className="font-black bg-yellow-200 px-1 border border-black"
-                                {...props}
-                              />
-                            ),
-                            ul: ({ node, ...props }) => (
-                              <ul
-                                className="list-disc pl-4 space-y-1 my-2"
-                                {...props}
-                              />
-                            ),
-                            ol: ({ node, ...props }) => (
-                              <ol
-                                className="list-decimal pl-4 space-y-1 my-2"
-                                {...props}
-                              />
-                            ),
-                            code: ({ node, inline, ...props }) =>
-                              inline ? (
-                                <code
-                                  className="bg-gray-200 px-1 font-mono text-xs border border-gray-400 rounded-sm"
-                                  {...props}
-                                />
-                              ) : (
-                                <div className="bg-black text-green-400 p-3 rounded-none my-2 overflow-x-auto border-2 border-gray-500 font-mono text-xs">
-                                  <code {...props} />
-                                </div>
-                              ),
-                          }}
+                          components={markdownComponents}
                         >
                           {m.content}
                         </ReactMarkdown>
@@ -385,7 +455,7 @@ export default function RetroChatRoom() {
 
         <form
           onSubmit={handleSend}
-          className="border-t-4 border-black px-3 py-3 bg-white flex flex-col gap-2 shrink-0"
+          className="border-t-4 border-black px-1.5 py-2 bg-white flex flex-col gap-2 shrink-0 sm:px-3 sm:py-3"
         >
           <div className="flex gap-2 w-full min-w-0">
             <input

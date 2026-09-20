@@ -13,12 +13,12 @@ export default async function DashboardGroupLayout({ children }) {
   }
 
   return (
-    <div className="flex min-h-screen w-full bg-[#F9F6EE] text-black antialiased p-0 m-0">
+    <div className="min-h-screen w-full bg-[#F9F6EE] text-black antialiased p-0 m-0 md:flex">
       <AppTutorial />
       <Sidebar user={user} />
 
-      <main className="flex-1 w-full min-w-0 overflow-x-hidden md:pl-16">
-        <div className="mx-auto w-full min-w-0 max-w-6xl px-3 py-3 sm:px-4 sm:py-4 md:px-6 md:py-5">
+      <main className="w-full min-w-0 overflow-x-hidden md:flex-1">
+        <div className="w-full min-w-0 px-0 py-0 sm:px-2 sm:py-2 md:px-3 md:py-3">
           {children}
         </div>
       </main>
