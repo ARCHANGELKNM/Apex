@@ -18,6 +18,20 @@
     min-height: 100vh;
     overflow-x: hidden;
   }
+
+  .adsbygoogle,
+  .adsbygoogle iframe,
+  .ad-responsive,
+  .ad-responsive iframe {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .ad-responsive iframe {
+    display: block;
+    height: auto !important;
+    margin: 0 auto;
+  }
 }
 
 :root {

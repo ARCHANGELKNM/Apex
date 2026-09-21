@@ -40,15 +40,21 @@ export default function AdUnit({
   if (!slot) return null;
 
   return (
-    <div className={className}>
+    <div className={`w-full max-w-full overflow-hidden ${className}`}>
       {label && (
-        <span className="block text-[10px] uppercase tracking-widest text-black/40 mb-1">
+        <span className="mb-1 block text-[10px] uppercase tracking-[0.2em] text-black/40">
           Advertisement
         </span>
       )}
       <ins
-        className="adsbygoogle"
-        style={{ display: "block", ...style }}
+        className="adsbygoogle w-full max-w-full"
+        style={{
+          display: "block",
+          width: "100%",
+          maxWidth: "100%",
+          minHeight: "90px",
+          ...style,
+        }}
         data-ad-client={client}
         data-ad-slot={slot}
         data-ad-format={format}
