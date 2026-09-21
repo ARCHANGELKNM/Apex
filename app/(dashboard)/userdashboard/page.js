@@ -7,8 +7,7 @@ import { Card, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import ProgressGraph from '@/components/dashboard/ProgressGraph';
-import Graph from '@/components/dashboard/Graph'
-import { PublisherBanner, PublisherSmartlink } from '@/components/ads/PublisherAds';
+import Graph from "@/components/dashboard/Graph";
 
 export default function userDashboard() {
   return (
@@ -19,8 +18,6 @@ export default function userDashboard() {
           Welcome Back
         </h2>
       </div>
-
-      <PublisherBanner />
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-4">
         {/* Profile Card */}
@@ -80,7 +77,6 @@ export default function userDashboard() {
         <ProgressGraph />
       </div>
 
-      <PublisherSmartlink />
     </div>
   );
 }

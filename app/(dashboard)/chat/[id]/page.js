@@ -17,7 +17,6 @@ import {
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { PublisherBanner } from "@/components/ads/PublisherAds";
 
 export default function RetroChatRoom() {
   const params = useParams();
@@ -443,8 +442,6 @@ export default function RetroChatRoom() {
 
           <div ref={bottomRef} />
         </div>
-
-        <PublisherBanner className="shrink-0 border-x-0" />
 
         <form
           onSubmit={handleSend}
