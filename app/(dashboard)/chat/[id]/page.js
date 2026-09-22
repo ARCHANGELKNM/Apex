@@ -345,7 +345,7 @@ export default function RetroChatRoom() {
           </Badge>
         </div>
 
-        <div className="flex-1 px-0 py-0 sm:px-4 sm:py-4 overflow-y-auto bg-[#F1EFE6] space-y-2 font-mono text-[13px] sm:text-sm">
+        <div className="flex-1 overflow-y-visible bg-transparent px-0 py-0 space-y-2 font-mono text-[13px] sm:text-sm md:overflow-y-auto md:bg-[#F1EFE6] md:px-4 md:py-4">
           <div className="rounded-none border-4 border-black bg-white p-2 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] mb-1 sm:p-3 sm:mb-3">
             <div className="font-black uppercase text-[10px] tracking-[0.12em] text-slate-700 sm:text-[11px]">
               Next steps

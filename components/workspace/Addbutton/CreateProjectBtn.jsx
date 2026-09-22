@@ -82,7 +82,7 @@ export default function CreateProjectBtn() {
         </div>
         <Button
           onClick={() => setIsOpen(false)}
-          variant="ghost"
+          
           className="mt-4 text-xs underline"
         >
           CANCEL
@@ -96,10 +96,10 @@ export default function CreateProjectBtn() {
     return (
       <form
         onSubmit={createProject}
-        className="h-full border-4 border-black p-6  flex flex-col justify-center shadow-[6px_6px_0px_0px_rgba(0,0,0,1)]"
+        className="h-full border-4 border-black p-6  bg-white flex flex-col justify-center shadow-[6px_6px_0px_0px_rgba(0,0,0,1)]"
       >
         <div className="mb-4">
-          <span className="text-[10px] font-bold text-gray-400 uppercase">
+          <span className="text-[10px] font-bold  uppercase">
             SELECTED: {category}
           </span>
           <h3 className="font-black uppercase text-lg">Name Task</h3>
@@ -108,7 +108,7 @@ export default function CreateProjectBtn() {
         <Input
           autoFocus
           placeholder="e.g. Calculus Q3..."
-          className="border-2 border-white bg-transparent  mb-3 rounded-none font-bold font-mono placeholder:text-gray-600 focus-visible:ring-0"
+          className="border-2 border-white mb-3 rounded-none font-bold font-mono placeholder:text-gray-600 focus-visible:ring-0"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
         />
@@ -117,7 +117,7 @@ export default function CreateProjectBtn() {
           <Button
             type="submit"
             disabled={isLoading}
-            className="flex-1 bg-white text-black rounded-none font-bold border-2 border-transparent hover:bg-gray-200"
+            className="flex-1 bg-white text-black rounded-none font-bold border-2 hover:bg-gray-200"
           >
             {isLoading ? <Loader2 className="animate-spin w-4 h-4" /> : "START"}
           </Button>
@@ -125,7 +125,7 @@ export default function CreateProjectBtn() {
             type="button"
             onClick={() => setStep(1)}
             variant="outline"
-            className="border-2 border-white  bg-transparent rounded-none font-bold hover:bg-white hover:text-black"
+            className="border-2 border-white  rounded-none font-bold hover:bg-white hover:text-black"
           >
             BACK
           </Button>
@@ -139,7 +139,7 @@ export default function CreateProjectBtn() {
     <button
       data-tour="create-project-button"
       onClick={() => setIsOpen(true)}
-      className="group h-8 w-8 bg-transparent hover:bg-gray-100 transition-all cursor-pointer flex flex-col items-center justify-center gap-4"
+      className="group h-8 w-8  hover:bg-gray-100 transition-all cursor-pointer flex flex-col items-center justify-center gap-4"
     >
       <div className="bg-black text-white p-4 rounded-full group-hover:scale-110 transition-transform shadow-[4px_4px_0px_0px_rgba(0,0,0,0.3)]">
         <Plus className="w-4 h-4" />
