@@ -35,8 +35,56 @@ export default function RetroChatRoom() {
   const [error, setError] = useState(null);
   const [isLandscapeMobile, setIsLandscapeMobile] = useState(false);
 
-  const bottomRef = useRef(null);
+  const chatViewportRef = useRef(null);
+  const isUserNearBottomRef = useRef(true);
+  const scrollFrameRef = useRef(null);
   const MAX_HISTORY_MESSAGES = 20;
+
+  const isNearBottom = () => {
+    const container = chatViewportRef.current;
+    if (!container) return true;
+
+    const threshold = 140;
+    return (
+      container.scrollHeight - container.scrollTop - container.clientHeight <=
+      threshold
+    );
+  };
+
+  const gentleScrollToBottom = () => {
+    if (typeof window === "undefined") return;
+
+    const container = chatViewportRef.current;
+    if (!container || !isUserNearBottomRef.current) return;
+
+    if (scrollFrameRef.current) {
+      cancelAnimationFrame(scrollFrameRef.current);
+    }
+
+    const startTop = container.scrollTop;
+    const endTop = container.scrollHeight;
+    const distance = endTop - startTop;
+
+    if (distance <= 0) return;
+
+    const duration = 320;
+    const startTime = performance.now();
+
+    const step = (now) => {
+      const elapsed = now - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+
+      container.scrollTop = startTop + distance * eased;
+      if (progress < 1) {
+        scrollFrameRef.current = requestAnimationFrame(step);
+      } else {
+        scrollFrameRef.current = null;
+      }
+    };
+
+    scrollFrameRef.current = requestAnimationFrame(step);
+  };
 
   useEffect(() => {
     const updateOrientation = () => {
@@ -83,8 +131,18 @@ export default function RetroChatRoom() {
   }, [chatId, subject]);
 
   useEffect(() => {
-    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages]);
+    const container = chatViewportRef.current;
+    if (!container) return;
+
+    const handleScroll = () => {
+      isUserNearBottomRef.current = isNearBottom();
+    };
+
+    container.addEventListener("scroll", handleScroll, { passive: true });
+    isUserNearBottomRef.current = isNearBottom();
+
+    return () => container.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const saveMessage = async (message) => {
     if (typeof window === "undefined") return;
@@ -134,11 +192,6 @@ export default function RetroChatRoom() {
       if (!response.body) throw new Error("No AI response body");
 
       const aiMsgId = Date.now().toString() + "_ai";
-      setMessages((prev) => [
-        ...prev,
-        { id: aiMsgId, role: "assistant", content: "" },
-      ]);
-
       const reader = response.body.getReader();
       const decoder = new TextDecoder();
       let done = false;
@@ -149,13 +202,21 @@ export default function RetroChatRoom() {
         done = doneReading;
         const chunkValue = decoder.decode(value, { stream: true });
         fullAiResponse += chunkValue;
-
-        setMessages((prev) =>
-          prev.map((msg) =>
-            msg.id === aiMsgId ? { ...msg, content: fullAiResponse } : msg,
-          ),
-        );
       }
+
+      const assistantMessage = {
+        id: aiMsgId,
+        role: "assistant",
+        content: fullAiResponse,
+      };
+
+      setMessages((prev) => [...prev, assistantMessage]);
+
+      window.setTimeout(() => {
+        if (isNearBottom()) {
+          gentleScrollToBottom();
+        }
+      }, 120);
 
       if (fullAiResponse.trim()) {
         await saveMessage({
@@ -440,7 +501,6 @@ export default function RetroChatRoom() {
               </div>
             ))}
 
-          <div ref={bottomRef} />
         </div>
 
         <form

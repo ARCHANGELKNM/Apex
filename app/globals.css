@@ -10,7 +10,7 @@
   html, body {
     margin: 0;
     padding: 0;
-    background: linear-gradient(180deg, #fbf7f1 0%, #f5efe5 100%);
+    background: linear-gradient(180deg, #f8f2e7 0%, #f1e9dc 100%);
     color: #171411;
   }
 
@@ -32,6 +32,23 @@
     display: block;
     height: auto !important;
     margin: 0 auto;
+  }
+
+  @keyframes chatFadeReveal {
+    from {
+      opacity: 0;
+      transform: translateY(6px);
+      filter: blur(1px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+      filter: blur(0);
+    }
+  }
+
+  .chat-reveal {
+    animation: chatFadeReveal 220ms ease-out both;
   }
 }
 

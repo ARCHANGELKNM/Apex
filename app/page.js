@@ -20,14 +20,14 @@ export default function RetroHomepage() {
       </div>
 
       <div className="space-y-6">
-        <h1 className="text-4xl sm:text-5xl md:text-7xl font-black tracking-tighter uppercase leading-[0.95] text-[var(--foreground)]">
+        <h1 className="text-4xl sm:text-5xl md:text-7xl font-black tracking-tighter uppercase leading-[0.95] text-[#171411]">
           The Smartest Tutor
           <br />
-          <span className="bg-gradient-to-r from-[#d7ba80] to-[#f2e0b4] border border-[#d7ba80] px-3 sm:px-4 shadow-[0_14px_26px_rgba(212,178,119,0.25)] inline-block my-2 -rotate-1 rounded-xl text-[#171411]">
+          <span className="bg-[linear-gradient(135deg,#f3e5c6_0%,#e5d4a7_100%)] border-2 border-black px-3 sm:px-4 shadow-[5px_5px_0_#000] inline-block my-2 -rotate-1 rounded-lg text-[#171411]">
             Tailored For You.
           </span>
         </h1>
-        <p className="text-base sm:text-lg font-bold max-w-xl mx-auto text-[var(--muted-foreground)] font-mono">
+        <p className="text-base sm:text-lg font-bold max-w-xl mx-auto text-[#5f5245] font-mono">
           Aristotle personalized for global education scale. No tracking pixels.
           Zero learning barriers.
         </p>
@@ -36,7 +36,7 @@ export default function RetroHomepage() {
       {/* RetroUI Card Entry Panel */}
       <Card
         variant="brutal"
-        className="max-w-md mx-auto bg-[rgba(255,255,255,0.72)] border border-[rgba(23,20,17,0.08)] shadow-[0_24px_60px_rgba(17,17,17,0.08)] p-2 text-left w-full backdrop-blur-sm"
+        className="max-w-md mx-auto border-2 border-black bg-white p-2 text-left w-full shadow-[8px_8px_0_#00000010]"
       >
         <CardHeader className="border-b-2 border-black pb-2">
           <h3 className="text-xl font-black uppercase tracking-tight text-black">

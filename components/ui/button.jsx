@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils"
 
 const buttonVariants = cva(
   cn(
-    "group/button font-head font-medium inline-flex cursor-pointer items-center justify-center gap-2 rounded-xl whitespace-nowrap select-none transition-all duration-200",
+    "group/button font-head font-medium inline-flex cursor-pointer items-center justify-center gap-2 rounded-lg whitespace-nowrap select-none transition-all duration-150",
     "disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-60",
     "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary aria-invalid:border-destructive",
     // Icons keep their own size; we only set a default when none is given so
@@ -16,15 +16,14 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default:
-          "border border-[rgba(23,20,17,0.08)] bg-[linear-gradient(135deg,#1a1b1f_0%,#2b2d32_100%)] text-[#f5f0e9] shadow-[0_16px_32px_rgba(17,17,17,0.18)] transition duration-200 hover:-translate-y-0.5 hover:shadow-[0_18px_34px_rgba(17,17,17,0.22)] active:translate-y-0",
+          "border-2 border-black bg-[#171411] text-[#f9f3eb] shadow-[4px_4px_0_#000] transition hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[2px_2px_0_#000] active:translate-x-1 active:translate-y-1 active:shadow-none",
         secondary:
-          "border border-[rgba(23,20,17,0.08)] bg-[linear-gradient(135deg,#d7ba80_0%,#f2e0b4_100%)] text-[#171411] shadow-[0_16px_32px_rgba(212,178,119,0.18)] transition duration-200 hover:-translate-y-0.5 hover:shadow-[0_18px_34px_rgba(212,178,119,0.22)] active:translate-y-0",
+          "border-2 border-black bg-[linear-gradient(135deg,#f3e5c6_0%,#e5d4a7_100%)] text-[#171411] shadow-[4px_4px_0_#000] transition hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[2px_2px_0_#000] active:translate-x-1 active:translate-y-1 active:shadow-none",
         destructive:
-          "border border-[rgba(23,20,17,0.08)] bg-[linear-gradient(135deg,#a14c4c_0%,#c65d5d_100%)] text-[#fff7f3] shadow-[0_14px_28px_rgba(161,76,76,0.2)] transition duration-200 hover:-translate-y-0.5 hover:shadow-[0_18px_32px_rgba(161,76,76,0.24)] active:translate-y-0",
+          "border-2 border-black bg-[#d96d5d] text-white shadow-[4px_4px_0_#000] transition hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[2px_2px_0_#000] active:translate-x-1 active:translate-y-1 active:shadow-none",
         outline:
-          "border border-[rgba(23,20,17,0.1)] bg-white/55 text-[var(--foreground)] shadow-[0_10px_18px_rgba(17,17,17,0.04)] transition duration-200 hover:-translate-y-0.5 hover:bg-white/75 active:translate-y-0",
-        ghost:
-          "bg-transparent hover:bg-[rgba(23,20,17,0.04)] text-[var(--foreground)]",
+          "border-2 border-black bg-white text-[#171411] shadow-[4px_4px_0_#00000020] transition hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[2px_2px_0_#00000020] active:translate-x-1 active:translate-y-1 active:shadow-none",
+        ghost: "bg-transparent hover:bg-black/5 text-[var(--foreground)]",
         link: "bg-transparent hover:underline text-[var(--foreground)]",
       },
       size: {
