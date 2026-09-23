@@ -369,7 +369,7 @@ export default function RetroChatRoom() {
             .map((m) => (
               <div
                 key={m.id}
-                className={`flex items-start gap-1.5 max-w-[98%] sm:max-w-[88%] ${m.role === "user" ? "ml-auto justify-end" : ""}`}
+                className={`flex items-start gap-1.5 w-full max-w-[98%] sm:max-w-[88%] ${m.role === "user" ? "ml-auto justify-end" : ""}`}
               >
                 <div
                   className={`border-2 border-black p-2 h-fit shrink-0 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] ${
@@ -411,9 +411,9 @@ export default function RetroChatRoom() {
                   </Card>
                 </div>
 
-                <div className="block md:hidden flex-1">
+                <div className="block md:hidden flex-1 min-w-0">
                   <div
-                    className={`border-2 border-black p-3 font-sans text-sm text-black rounded-none shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] ${
+                    className={`border-0 border-black px-2 py-2 font-sans text-sm text-black rounded-none ${
                       m.role === "user" ? "bg-cyan-100 text-right" : "bg-white"
                     }`}
                   >

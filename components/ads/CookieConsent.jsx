@@ -35,7 +35,10 @@ export default function CookieConsent() {
       <p className="text-sm leading-relaxed text-black/70">
         We use cookies to run this app and to show ads. Google and its partners
         may use cookies to serve ads based on your visits. See our{" "}
-        <Link href="/privacy" className="font-medium underline underline-offset-2 hover:text-black">
+        <Link
+          href="/privacy"
+          className="font-medium underline underline-offset-2 hover:text-black"
+        >
           Privacy Policy
         </Link>
         .
@@ -51,7 +54,7 @@ export default function CookieConsent() {
         <button
           type="button"
           onClick={() => choose("all")}
-          className="rounded-full bg-yellow-300 px-4 py-2 text-sm font-semibold text-black hover:bg-yellow-400 transition-colors"
+          className="rounded-full bg-[linear-gradient(135deg,#d7ba80_0%,#f2e0b4_100%)] px-4 py-2 text-sm font-semibold text-[#171411] shadow-[0_12px_24px_rgba(212,178,119,0.22)] hover:brightness-105 transition-colors"
         >
           Accept all
         </button>

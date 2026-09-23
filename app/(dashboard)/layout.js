@@ -13,7 +13,7 @@ export default async function DashboardGroupLayout({ children }) {
   }
 
   return (
-    <div className="min-h-screen w-full bg-[#F9F6EE] text-black antialiased p-0 m-0 md:flex">
+    <div className="min-h-screen w-full bg-[var(--background)] text-[var(--foreground)] antialiased p-0 m-0 md:flex">
       <AppTutorial />
       <Sidebar user={user} />
 

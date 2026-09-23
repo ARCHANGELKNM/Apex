@@ -319,35 +319,35 @@ export default function RetroChatRoom() {
         </div>
       )}
 
-      <div className="flex min-h-[calc(100dvh-4rem)] flex-col bg-[#F9F6EE]">
-        <div className="border-b-4 border-black px-3 py-2.5 bg-purple-300 flex items-center justify-between gap-3 shrink-0 sm:px-4 sm:py-3">
+      <div className="flex min-h-[calc(100dvh-4rem)] flex-col bg-[var(--background)]">
+        <div className="border-b border-[rgba(23,20,17,0.08)] px-3 py-2.5 bg-gradient-to-r from-[#171a1f] to-[#1f2228] text-[#f5f0e9] flex items-center justify-between gap-3 shrink-0 sm:px-4 sm:py-3 rounded-b-2xl">
           <div className="flex items-center gap-3 min-w-0">
             <Link href="/userdashboard">
               <Button
                 variant="outline"
-                className="border-2 border-black p-1 bg-white shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] h-8 w-8 flex items-center justify-center"
+                className="border border-white/10 p-1 bg-white/5 shadow-[0_10px_18px_rgba(0,0,0,0.18)] h-8 w-8 flex items-center justify-center text-[#f5f0e9]"
               >
                 <ArrowLeft className="w-4 h-4 stroke-[2.5]" />
               </Button>
             </Link>
             <div className="min-w-0">
-              <h3 className="font-black uppercase text-sm tracking-tight text-black truncate sm:text-base">
+              <h3 className="font-black uppercase text-sm tracking-tight text-[#f5f0e9] truncate sm:text-base">
                 PROTOCOL: {subject}
               </h3>
-              <span className="font-mono text-[9px] font-bold text-slate-700 uppercase flex items-center gap-1 sm:text-[10px]">
+              <span className="font-mono text-[9px] font-bold text-[#d4c5ae] uppercase flex items-center gap-1 sm:text-[10px]">
                 <Cpu className="w-3 h-3 shrink-0" /> MANUAL_ENGINE_V8
               </span>
             </div>
           </div>
           <Badge
             variant="black"
-            className={`text-white text-[9px] font-mono font-bold shrink-0 sm:text-[10px] ${isLoading ? "bg-red-500 animate-pulse" : "bg-black"}`}
+            className={`text-[#171411] text-[9px] font-mono font-bold shrink-0 sm:text-[10px] ${isLoading ? "bg-[#f0c29b] animate-pulse" : "bg-gradient-to-r from-[#d7ba80] to-[#f2e0b4]"}`}
           >
             {isLoading ? "COMPUTING..." : "LIVE_FEED"}
           </Badge>
         </div>
 
-        <div className="flex-1 overflow-y-visible bg-transparent px-0 py-0 space-y-2 font-mono text-[13px] sm:text-sm md:overflow-y-auto md:bg-[#F1EFE6] md:px-4 md:py-4">
+        <div className="flex-1 overflow-y-visible bg-transparent px-0 py-2 space-y-2 font-mono text-[13px] sm:text-sm md:overflow-y-auto md:bg-[rgba(255,255,255,0.45)] md:px-4 md:py-4">
           <div className="rounded-none border-4 border-black bg-white p-2 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] mb-1 sm:p-3 sm:mb-3">
             <div className="font-black uppercase text-[10px] tracking-[0.12em] text-slate-700 sm:text-[11px]">
               Next steps
@@ -371,11 +371,13 @@ export default function RetroChatRoom() {
             .map((m) => (
               <div
                 key={m.id}
-                className={`flex items-start gap-1.5 max-w-[98%] sm:max-w-[88%] ${m.role === "user" ? "ml-auto justify-end" : ""}`}
+                className={`flex items-start gap-1.5 w-full max-w-[98%] sm:max-w-[88%] ${m.role === "user" ? "ml-auto justify-end" : ""}`}
               >
                 <div
-                  className={`border-2 border-black p-2 h-fit shrink-0 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] ${
-                    m.role === "user" ? "bg-cyan-300 order-2" : "bg-yellow-300"
+                  className={`border border-[rgba(23,20,17,0.08)] p-2 h-fit shrink-0 shadow-[0_12px_24px_rgba(17,17,17,0.08)] rounded-xl ${
+                    m.role === "user"
+                      ? "bg-[#171a1f] text-[#f5f0e9] order-2"
+                      : "bg-gradient-to-br from-[#d7ba80] to-[#f2e0b4] text-[#171411]"
                   }`}
                 >
                   {m.role === "user" ? (
@@ -388,8 +390,10 @@ export default function RetroChatRoom() {
                 <div className="hidden md:block flex-1">
                   <Card
                     variant="brutal"
-                    className={`border-2 border-black p-4 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] font-sans text-sm text-black rounded-none flex-1 ${
-                      m.role === "user" ? "bg-cyan-100 text-right" : "bg-white"
+                    className={`border border-[rgba(23,20,17,0.08)] p-4 shadow-[0_16px_28px_rgba(17,17,17,0.08)] font-sans text-sm rounded-2xl flex-1 ${
+                      m.role === "user"
+                        ? "bg-[rgba(23,26,31,0.96)] text-[#f5f0e9] text-right"
+                        : "bg-[rgba(255,255,255,0.78)] text-[var(--foreground)]"
                     }`}
                   >
                     <div
@@ -413,9 +417,9 @@ export default function RetroChatRoom() {
                   </Card>
                 </div>
 
-                <div className="block md:hidden flex-1">
+                <div className="block md:hidden flex-1 min-w-0">
                   <div
-                    className={`border-2 border-black p-3 font-sans text-sm text-black rounded-none shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] ${
+                    className={`border-0 border-black px-2 py-2 font-sans text-sm text-black rounded-none ${
                       m.role === "user" ? "bg-cyan-100 text-right" : "bg-white"
                     }`}
                   >
@@ -468,7 +472,7 @@ export default function RetroChatRoom() {
               type="submit"
               aria-label="Send message"
               disabled={isLoading || !input.trim()}
-              className="border-2 border-black bg-pink-500 hover:bg-pink-400 text-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] h-11 w-11 flex items-center justify-center shrink-0 disabled:opacity-50 disabled:bg-gray-300 transition-all active:translate-y-1 active:shadow-none"
+              className="border border-[rgba(23,20,17,0.08)] bg-gradient-to-r from-[#d7ba80] to-[#f2e0b4] hover:brightness-105 text-[#171411] shadow-[0_12px_24px_rgba(212,178,119,0.24)] h-11 w-11 flex items-center justify-center shrink-0 disabled:opacity-50 disabled:bg-gray-300 transition-all active:translate-y-0.5 rounded-2xl"
             >
               <ArrowUp className="w-5 h-5 stroke-3" />
             </button>

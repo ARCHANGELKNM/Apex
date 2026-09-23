@@ -13,13 +13,13 @@ export default function RetroSettings() {
   return (
     <div className="w-full space-y-3 animate-in fade-in duration-200 sm:space-y-5">
       {/* Settings Diagnostic System Banner */}
-      <div className="border-4 border-black bg-emerald-300 p-2 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 sm:p-3">
-        <h2 className="text-lg sm:text-xl font-black uppercase tracking-tight min-w-0">
+      <div className="border border-[rgba(23,20,17,0.1)] bg-gradient-to-r from-[#d7ba80] to-[#f2e0b4] p-2 shadow-[0_18px_32px_rgba(212,178,119,0.18)] flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 sm:p-3 rounded-2xl">
+        <h2 className="text-lg sm:text-xl font-black uppercase tracking-tight min-w-0 text-[#171411]">
           System Configuration // Calibrate User
         </h2>
         <Badge
           variant="black"
-          className="font-mono text-[10px] font-bold text-white uppercase w-fit shrink-0"
+          className="font-mono text-[10px] font-bold text-[#171411] uppercase w-fit shrink-0 bg-[rgba(255,255,255,0.28)] border border-[#171411]/10"
         >
           CFG_STATE: OK
         </Badge>
@@ -54,8 +54,10 @@ export default function RetroSettings() {
                 key={tier.id}
                 variant={academicTier === tier.id ? "default" : "outline"}
                 onClick={() => setAcademicTier(tier.id)}
-                className={`font-black text-xs uppercase border-2 border-black p-4 h-auto shadow-[3px_3px_0px_0px_#000] ${
-                  academicTier === tier.id ? "bg-yellow-300" : "bg-white"
+                className={`font-black text-xs uppercase border border-[rgba(23,20,17,0.08)] p-4 h-auto shadow-[0_10px_18px_rgba(17,17,17,0.06)] rounded-2xl ${
+                  academicTier === tier.id
+                    ? "bg-gradient-to-r from-[#d7ba80] to-[#f2e0b4] text-[#171411]"
+                    : "bg-white/70 text-[var(--foreground)]"
                 }`}
               >
                 {tier.label}
@@ -93,8 +95,10 @@ export default function RetroSettings() {
                 key={size.id}
                 variant={fontSize === size.id ? "default" : "outline"}
                 onClick={() => setFontSize(size.id)}
-                className={`font-black text-xs uppercase border-2 border-black p-4 h-auto shadow-[3px_3px_0px_0px_#000] ${
-                  fontSize === size.id ? "bg-cyan-300" : "bg-white"
+                className={`font-black text-xs uppercase border border-[rgba(23,20,17,0.08)] p-4 h-auto shadow-[0_10px_18px_rgba(17,17,17,0.06)] rounded-2xl ${
+                  fontSize === size.id
+                    ? "bg-[#171a1f] text-[#f5f0e9]"
+                    : "bg-white/70 text-[var(--foreground)]"
                 }`}
               >
                 {size.label}
