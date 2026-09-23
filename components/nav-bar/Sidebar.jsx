@@ -62,7 +62,7 @@ export default function Sidebar({ user }) {
 
   return (
     <>
-      <div className="md:hidden w-screen h-screen bg-[#f9f5ef] border-b border-black/8 pr-4 py-3 flex flex-row items-center justify-between z-50 box-border shadow-[0_8px_18px_rgba(17,17,17,0.03)]">
+      <div className="md:hidden w-screen h-18 bg-[#f9f5ef] border-b border-black/8 pr-4 py-3 flex flex-row items-center justify-between z-50 box-border shadow-[0_8px_18px_rgba(17,17,17,0.03)]">
         <div className="bg-[linear-gradient(135deg,#f3e5c6_0%,#e5d4a7_100%)] px-3 py-1.5 font-black text-sm tracking-[0.2em] uppercase text-[#171411] select-none rounded-xl shadow-[0_10px_22px_rgba(177,146,99,0.18)]">
           APEX
         </div>
