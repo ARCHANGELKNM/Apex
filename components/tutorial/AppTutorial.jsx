@@ -98,11 +98,25 @@ export default function AppTutorial() {
 
   if (!activeStep || !targetRect) return null;
 
-  const boxLeft = Math.min(
-    window.innerWidth - 260,
-    Math.max(12, targetRect.right + 18),
-  );
-  const boxTop = Math.max(16, targetRect.top + 12);
+  const isMobile = window.innerWidth < 768;
+  const tooltipWidth = isMobile ? Math.min(220, window.innerWidth - 24) : 260;
+  const tooltipHeight = 180;
+
+  let boxLeft = targetRect.right + 18;
+  if (boxLeft + tooltipWidth > window.innerWidth - 12) {
+    boxLeft = targetRect.left - tooltipWidth - 18;
+  }
+  if (boxLeft < 12) {
+    boxLeft = 12;
+  }
+
+  let boxTop = targetRect.top + 12;
+  if (boxTop + tooltipHeight > window.innerHeight - 12) {
+    boxTop = targetRect.top - tooltipHeight - 12;
+  }
+  if (boxTop < 12) {
+    boxTop = 12;
+  }
 
   return (
     <div className="pointer-events-none fixed inset-0 z-100">
@@ -118,8 +132,8 @@ export default function AppTutorial() {
       />
 
       <div
-        className="pointer-events-auto absolute w-60 rounded-none border-4 border-black bg-white p-3 shadow-[6px_6px_0px_0px_rgba(0,0,0,1)]"
-        style={{ left: boxLeft, top: boxTop }}
+        className="pointer-events-auto absolute rounded-none border-4 border-black bg-white p-3 shadow-[6px_6px_0px_0px_rgba(0,0,0,1)]"
+        style={{ left: boxLeft, top: boxTop, width: tooltipWidth }}
       >
         <div className="mb-2 text-[10px] font-black uppercase tracking-[0.2em] text-slate-600">
           Step {stepIndex + 1}
