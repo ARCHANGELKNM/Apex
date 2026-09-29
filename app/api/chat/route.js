@@ -1,5 +1,5 @@
 import OpenAI from "openai";
-import { initOperon } from "@operon/sdk"; // 👈 Integrated Operon SDK
+import { initOperon } from "@operon/sdk"; 
 
 export const runtime = "nodejs";
 
