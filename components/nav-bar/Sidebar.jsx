@@ -18,29 +18,9 @@ import { LogoutLink } from "@kinde-oss/kinde-auth-nextjs/components";
 export default function Sidebar({ user }) {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [showHeader, setShowHeader] = useState(true);
   const closeButtonRef = useRef(null);
 
   const isActive = (path) => pathname === path;
-
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-
-    let lastScrollY = window.scrollY;
-
-    const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-      const scrollingUp = currentScrollY < lastScrollY;
-
-      setShowHeader(scrollingUp || currentScrollY < 24);
-      lastScrollY = currentScrollY;
-    };
-
-    handleScroll();
-    window.addEventListener("scroll", handleScroll, { passive: true });
-
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
   useEffect(() => {
     function handleKey(e) {
@@ -62,7 +42,7 @@ export default function Sidebar({ user }) {
 
   return (
     <>
-      <div className="md:hidden w-screen h-18 bg-[#f8f2e8] border-b-[3px] border-black py-3 flex flex-row items-center justify-between z-50 box-border shadow-[0_6px_0_#00000012]">
+      <div className="md:hidden sticky top-0 w-screen h-18 bg-[#f8f2e8] border-b-[3px] border-black py-3 flex flex-row items-center justify-between z-60 box-border shadow-[0_6px_0_#00000012]">
         <div className="bg-[linear-gradient(135deg,#f3e5c6_0%,#e5d4a7_100%)] px-3 py-1.5 font-black text-sm tracking-[0.24em] uppercase text-[#171411] select-none rounded-lg border-2 border-black shadow-[3px_3px_0_#000]">
           APEX
         </div>
@@ -93,18 +73,12 @@ export default function Sidebar({ user }) {
         id="apex-sidebar"
         className={`
           fixed top-0 left-0 z-50 h-screen w-72 max-w-[85vw] bg-[#fbf7f1] text-[#171411] flex flex-col justify-between border-r-[3px] border-black shadow-[5px_0_0_rgba(0,0,0,0.04)] transition-transform duration-200 ease-in-out
-          md:static md:z-30 md:w-16 md:max-w-none md:hover:w-64 md:translate-x-0 md:p-2 md:flex
+          md:sticky md:top-0 md:z-30 md:h-screen md:self-start md:w-16 md:max-w-none md:hover:w-64 md:translate-x-0 md:p-2 md:flex
           p-6 group/sidebar ${mobileOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"}
         `}
       >
-        <div className="space-y-4 overflow-x-hidden w-full h-screen">
-          <div
-            className={`w-full flex items-center justify-start overflow-hidden transition-all duration-200 ease-out ${
-              showHeader
-                ? "max-h-14 opacity-100 translate-y-0"
-                : "max-h-0 opacity-0 -translate-y-2 md:max-h-0"
-            }`}
-          >
+        <div className="min-h-0 flex-1 space-y-4 overflow-x-hidden w-full">
+          <div className="w-full flex items-center justify-start overflow-hidden">
             <div className="bg-[linear-gradient(135deg,#f3e5c6_0%,#e5d4a7_100%)] h-9 w-9 flex items-center justify-center font-black text-sm select-none text-[#171411] shrink-0 rounded-lg border-2 border-black shadow-[3px_3px_0_#000] group-hover/sidebar:md:hidden max-md:hidden">
               A
             </div>

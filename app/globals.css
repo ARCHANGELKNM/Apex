@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "katex/dist/katex.min.css";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -49,6 +50,13 @@
 
   .chat-reveal {
     animation: chatFadeReveal 220ms ease-out both;
+  }
+
+  .katex-display {
+    max-width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 0.4rem 0;
   }
 }
 

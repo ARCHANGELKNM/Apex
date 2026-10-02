@@ -2,6 +2,8 @@
 
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import remarkMath from "remark-math";
+import rehypeKatex from "rehype-katex";
 
 import React, { useEffect, useRef, useState } from "react";
 import Link from "next/link";
@@ -291,7 +293,8 @@ export default function RetroChatRoom() {
                     <p>{m.content}</p>
                   ) : (
                     <ReactMarkdown
-                      remarkPlugins={[remarkGfm]}
+                      remarkPlugins={[remarkGfm, remarkMath]}
+                      rehypePlugins={[rehypeKatex]}
                       components={{
                         strong: ({ node, ...props }) => (
                           <span
