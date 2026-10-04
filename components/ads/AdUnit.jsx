@@ -10,8 +10,7 @@ import { useEffect, useRef } from "react";
  *   <AdUnit slot="1234567890" format="fluid" />        // in-feed / in-article
  *   <AdUnit slot="1234567890" className="my-8" />      // with spacing
  *
- * Renders nothing until NEXT_PUBLIC_ADSENSE_CLIENT and `slot` are set,
- * so it is safe to place in the layout before ad units are created.
+ * Renders nothing until an AdSense ad slot is configured.
  */
 export default function AdUnit({
   slot,
@@ -23,7 +22,7 @@ export default function AdUnit({
 }) {
   const pushedRef = useRef(false);
 
-  const client = process.env.NEXT_PUBLIC_ADSENSE_CLIENT || "ca-pub-8679808720592276";
+  const client = "ca-pub-8679808720592276";
 
   useEffect(() => {
     if (!slot || pushedRef.current) return;

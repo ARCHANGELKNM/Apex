@@ -1,0 +1,27 @@
+{
+  "expo": {
+    "name": "Apex Tutor",
+    "slug": "apex-tutor",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "scheme": "apextutor",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "ios": {
+      "bundleIdentifier": "com.apextutor.mobile",
+      "supportsTablet": true
+    },
+    "android": {
+      "package": "com.apextutor.mobile",
+      "adaptiveIcon": {
+        "backgroundColor": "#f5f0e9",
+        "foregroundImage": "./assets/android-icon-foreground.png",
+        "backgroundImage": "./assets/android-icon-background.png",
+        "monochromeImage": "./assets/android-icon-monochrome.png"
+      }
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    }
+  }
+}

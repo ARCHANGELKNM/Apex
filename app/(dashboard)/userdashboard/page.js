@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import ProgressGraph from '@/components/dashboard/ProgressGraph';
 import Graph from "@/components/dashboard/Graph";
+import AdUnit from "@/components/ads/AdUnit";
 
 export default function userDashboard() {
   return (
@@ -18,6 +19,8 @@ export default function userDashboard() {
           Welcome Back
         </h2>
       </div>
+
+      <AdUnit slot={process.env.NEXT_PUBLIC_ADSENSE_SLOT} />
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-4">
         {/* Profile Card */}
